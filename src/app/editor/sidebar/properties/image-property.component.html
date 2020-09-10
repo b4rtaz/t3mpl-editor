@@ -1,0 +1,21 @@
+<div class="property" [class.invalid]="validationError">
+	<div class="label">
+		<i class="fas fa-image fa-fw fa-lg" [title]="dataPath"></i>
+		<span class="name">
+			{{property._label}} <ng-container *ngIf="property.required">*</ng-container>
+			<span *ngIf="property._description" class="description">({{property._description}})</span>
+		</span>
+	</div>
+	<div class="value">
+		<span class="image-picker"
+			[style.width]="pickerWidth + 'px'"
+			[style.height]="pickerHeight + 'px'"
+			(click)="pick()">
+			<span class="placeholder" *ngIf="property.width || property.height">
+				<span class="size">{{property.width || '&infin;'}}&times;{{property.height || '&infin;'}}</span>
+			</span>
+			<img *ngIf="value" [src]="previewDataUrl" [width]="pickerWidth" [height]="pickerHeight" />
+		</span>
+		<button *ngIf="value && !property.required" class="image-picker-clear" (click)="clear()"><i class="fas fa-times fa-sm"></i></button>
+	</div>
+</div>

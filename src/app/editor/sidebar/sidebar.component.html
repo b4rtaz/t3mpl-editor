@@ -1,0 +1,78 @@
+<div class="container">
+	<div class="header">
+		<div class="logo">
+			<h1>
+				<i class="fas fa-code fa-sm"></i> T3MPL <sup>{{appVersion}}</sup>
+			</h1>
+		</div>
+		<div class="control">
+			<button class="publish" *ngIf="templateName" (click)="publish()">
+				Publish <i class="fas fa-paper-plane fa-lg ml"></i>
+			</button>
+			<button class="openMenu" (click)="isMenuVisible = !isMenuVisible">
+				<i class="fas fa-bars fa-lg"></i>
+			</button>
+
+			<div class="menu" [hidden]="!isMenuVisible">
+				<ul>
+					<li (click)="importTemplate(); isMenuVisible = false">
+						<i class="fas fa-file-upload fa-fw mr"></i>
+						Import template .t3mpl
+					</li>
+					<li *ngIf="templateName && canExportTemplate" (click)="exportTemplate(); isMenuVisible = false">
+						<i class="fas fa-file-import fa-fw mr"></i>
+						Export template .t3mpl
+					</li>
+					<li *ngIf="templateName" (click)="importData(); isMenuVisible = false">
+						<i class="fas fa-file-upload fa-fw mr"></i>
+						Import data .t3data
+					</li>
+					<li *ngIf="templateName" (click)="exportData(); isMenuVisible = false">
+						<i class="fas fa-file-import fa-fw mr"></i>
+						Export data .t3data
+					</li>
+					<li *ngIf="templateName && previewMode === 'template'" (click)="setPreviewMode('data'); isMenuVisible = false">
+						<i class="fas fa-code fa-fw mr"></i>
+						Show data
+					</li>
+					<li *ngIf="templateName && previewMode === 'data'" (click)="setPreviewMode('template'); isMenuVisible = false">
+						<i class="fas fa-eye fa-fw mr"></i>
+						Show template
+					</li>
+					<li *ngIf="templateName" (click)="openTemplateInfo(); isMenuVisible = false">
+						<i class="fas fa-info fa-fw mr"></i>
+						About template
+					</li>
+					<li (click)="exploreTemplates(); isMenuVisible = false">
+						<i class="fas fa-star fa-fw mr"></i>
+						Explore templates
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="zones">
+		<div class="label">
+			<i class="fas fa-cube fa-sm mr"></i> {{templateName}}
+		</div>
+		<div class="value">
+			<select (change)="onZoneChanged($event.target.value)">
+				<option
+					*ngFor="let z of zones | keyvalue"
+					[value]="z.key"
+					[selected]="z.key === currentZoneName">
+					{{z.value._label}}
+				</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="sections">
+		<app-sections
+			*ngFor="let sections of currentSections"
+			[sections]="sections"
+			[dataPath]="currentZoneName">
+		</app-sections>
+	</div>
+</div>

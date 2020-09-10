@@ -1,0 +1,15 @@
+<div class="property" [class.invalid]="validationError">
+	<div class="label">
+		<i class="fas fa-hashtag fa-fw fa-lg" [title]="dataPath"></i>
+		<span class="name">
+			{{property._label}} <ng-container *ngIf="property.required">*</ng-container>
+			<span *ngIf="property._description" class="description">({{property._description}})</span>
+		</span>
+	</div>
+	<div class="value">
+		<button class="edit" (click)="edit()" title="Edit">
+			<i class="fas fa-edit fa-sm"></i>
+		</button>
+		<span class="info-after-button" *ngIf="value">{{charCount}} characters</span>
+	</div>
+</div>

@@ -1,0 +1,72 @@
+meta:
+  version: 1
+  name: Boilerplate
+  license: MIT
+  author: Bartlomiej Tadych <email@example.com> (http://n4no.com/)
+  exportable: true
+  homepageUrl: http://n4no.com/
+  donationUrl: http://n4no.com/
+  filePaths:
+    - license.txt
+    - index.html
+    - assets/style.css
+    - assets/favicon.png
+    - assets/og-image.png
+
+dataContract:
+
+  COMMON:
+    _label: Common
+    sections:
+      META:
+        _label: Meta
+        properties:
+          LANGUAGE:
+            type: (choice)
+            valuesSet: (iso6391Languages)
+            defaultValue: en
+          DIRECTION:
+            type: (choice)
+            valuesSet: (direction)
+            defaultValue: auto
+          TITLE:
+            type: (text)
+            defaultValue: My Page Title
+            _label: Page Title
+          DESCRIPTION:
+            type: (text)
+            defaultValue: My Page Description
+            _label: Page Description
+          FAVICON:
+            type: (image)
+            width: 32
+            height: 32
+            defaultFilePath: assets/favicon.png
+          OG_IMAGE:
+            type: (image)
+            width: 1200
+            height: 630
+            defaultFilePath: assets/og-image.png
+            _label: Open Graph Image
+          PRE_HTML:
+            type: (html)
+            _label: Pre HTML
+            _description: i.e. cookie banner
+            required: false
+      FOOTER:
+        properties:
+          COPYRIGHT:
+            type: (text)
+            defaultValue: All rights reserved.
+          POWERED_BY:
+            type: (boolean)
+            defaultValue: true
+          POST_HTML:
+            type: (html)
+            _label: Post HTML
+            _description: i.e. plugins, tracking
+            required: false
+pages:
+  INDEX:
+    filePath: index.html
+    templateFilePath: index.html

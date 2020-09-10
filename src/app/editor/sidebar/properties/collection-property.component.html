@@ -1,0 +1,40 @@
+<div class="property" [class.invalid]="validationError">
+	<div class="label">
+		<i class="fas fa-circle-notch fa-fw fa-lg" [title]="dataPath"></i>
+		<span class="name">
+			{{property._label}} <ng-container *ngIf="property.required">*</ng-container>
+			<span *ngIf="property._description" class="description">({{property._description}})</span>
+		</span>
+	</div>
+	<div class="value">
+		<span class="circle-picker">
+			<button class="add" (click)="unshiftItem()" [disabled]="!canAddItem" title="Insert item">
+				<i class="fas fa-plus fa-sm"></i>
+			</button>
+			<span class="info-after-button">{{items.length}} items</span>
+		</span>
+	</div>
+</div>
+
+<div class="children">
+	<div class="child" *ngFor="let _ of items; let ix = index">
+		<div class="control">
+			<span class="occurcene">Item {{items.length - ix}}</span>
+
+			<button *ngIf="ix > 0" class="up" (click)="moveItem(ix, -1)" title="Move up">
+				<i class="fas fa-arrow-up fa-sm"></i>
+			</button>
+			<button *ngIf="ix + 1 < items.length" class="down" (click)="moveItem(ix, 1)" title="Move down">
+				<i class="fas fa-arrow-down fa-sm"></i>
+			</button>
+			<button class="delete" (click)="deleteItem(ix)" title="Delete">
+				<i class="fas fa-times fa-sm"></i>
+			</button>
+		</div>
+
+		<app-properties
+			[properties]="property.properties"
+			[dataPath]="dataPath + '[' + ix + ']'">
+		</app-properties>
+	</div>
+</div>

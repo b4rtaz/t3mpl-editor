@@ -1,0 +1,9 @@
+<ul>
+	<li
+		*ngFor="let filePath of filePaths"
+		[class.selected]="filePath === currentFilePath"
+		(click)="change(filePath)">
+		<i class="fas fa-code mr"></i>
+		{{filePath}}
+	</li>
+</ul>

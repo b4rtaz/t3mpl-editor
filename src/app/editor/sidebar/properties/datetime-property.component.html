@@ -1,0 +1,13 @@
+<div class="property" [class.invalid]="validationError">
+	<div class="label">
+		<i class="fas fa-clock fa-fw fa-lg" [title]="dataPath"></i>
+		<span class="name">
+			{{property._label}} <ng-container *ngIf="property.required">*</ng-container>
+			<span *ngIf="property._description" class="description">({{property._description}})</span>
+		</span>
+	</div>
+	<div class="value">
+		<input type="date" [value]="dateValue" (change)="onDateChanged($event.currentTarget.value)" />
+		<input type="time" [value]="timeValue" step="1" (change)="onTimeChanged($event.currentTarget.value)" />
+	</div>
+</div>

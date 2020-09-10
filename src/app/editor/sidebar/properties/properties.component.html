@@ -1,0 +1,17 @@
+<ng-container *ngFor="let p of orderedProperties" [ngSwitch]="p.contract.type">
+
+	<app-text-property *ngSwitchCase="'text'" [property]="p.contract" [dataPath]="dataPath + '.' + p.propertyName"></app-text-property>
+	<app-boolean-property *ngSwitchCase="'boolean'" [property]="p.contract" [dataPath]="dataPath + '.' + p.propertyName"></app-boolean-property>
+	<app-datetime-property *ngSwitchCase="'dateTime'" [property]="p.contract" [dataPath]="dataPath + '.' + p.propertyName"></app-datetime-property>
+	<app-choice-property *ngSwitchCase="'choice'" [property]="p.contract" [dataPath]="dataPath + '.' + p.propertyName"></app-choice-property>
+	<app-color-property *ngSwitchCase="'color'" [property]="p.contract" [dataPath]="dataPath + '.' + p.propertyName"></app-color-property>
+	<app-collection-property *ngSwitchCase="'collection'" [property]="p.contract" [dataPath]="dataPath + '.' + p.propertyName"></app-collection-property>
+	<app-html-property *ngSwitchCase="'html'" [property]="p.contract" [dataPath]="dataPath + '.' + p.propertyName"></app-html-property>
+	<app-markdown-property *ngSwitchCase="'markdown'" [property]="p.contract" [dataPath]="dataPath + '.' + p.propertyName"></app-markdown-property>
+	<app-image-property *ngSwitchCase="'image'" [property]="p.contract" [dataPath]="dataPath + '.' + p.propertyName"></app-image-property>
+
+	<div *ngSwitchDefault>
+		Not supported property type: {{p.contract.type}}
+	</div>
+
+</ng-container>

@@ -1,0 +1,19 @@
+
+<section class="section">
+	<div class="tabs">
+		<ul>
+			<li *ngFor="let s of sections | keyvalue" 
+				[class.selected]="s.key === currentSectionName"
+				[title]="s.value._description"
+				(click)="selectSection(s.key)">
+				{{s.value._label}}
+			</li>
+		</ul>
+	</div>
+	<div class="body">
+		<app-properties
+			[properties]="currentSection.properties"
+			[dataPath]="dataPath + '.' + currentSectionName">
+		</app-properties>
+	</div>
+</section>

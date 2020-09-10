@@ -1,0 +1,23 @@
+<div class="popup">
+	<div class="window">
+		<div class="header">
+			<h3>Edit HTML</h3>
+			<button class="close" (click)="close()">
+				<i class="fas fa-times fa-lg"></i>
+			</button>
+		</div>
+		<div class="body">
+			<div class="html-editor">
+				<textarea #textarea></textarea>
+			</div>
+		</div>
+		<div class="footer">
+			<button (click)="save()">
+				<i class="fas fa-check fa-sm fa-fw mr"></i> Ok
+			</button>
+			<button (click)="close()">
+				<i class="fas fa-times fa-sm fa-fw mr"></i> Cancel
+			</button>
+		</div>
+	</div>
+</div>

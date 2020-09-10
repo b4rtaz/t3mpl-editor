@@ -1,0 +1,26 @@
+<div class="popup">
+	<div class="window">
+		<div class="header">
+			<h3>
+				<ng-container *ngIf="mode === 'data'">Import Data</ng-container>
+				<ng-container *ngIf="mode === 'template'">Import Template</ng-container>
+			</h3>
+			<button class="close" (click)="close()">
+				<i class="fas fa-times fa-lg"></i>
+			</button>
+		</div>
+		<div class="body">
+			<div class="import">
+				<input type="file" (change)="onChanged($event)" />
+			</div>
+		</div>
+		<div class="footer">
+			<button (click)="import()" [disabled]="!file || processing">
+				<i class="fas fa-upload fa-sm fa-fw mr"></i> Import
+			</button>
+			<button (click)="close()" [disabled]="processing">
+				<i class="fas fa-times fa-sm fa-fw mr"></i> Cancel
+			</button>
+		</div>
+	</div>
+</div>

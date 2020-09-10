@@ -1,0 +1,154 @@
+
+html, body, h1, h2, h3, h4, h5, h6, p, ul, ol, input, select, button, iframe, textarea, dl, dt, dd {margin: 0; padding: 0; border: 0; outline: 0;}
+ul {list-style-type: none;}
+a {text-decoration: none;}
+
+body, input, select, option, button {font: 12px/1.3rem 'Open Sans';}
+
+@mixin background-hover($color) {
+	& {background: $color; transition: background-color 0.15s linear;}
+	&:hover {background: lighten($color, 10%);}
+}
+
+$mobile: 'screen and (max-width: 900px)';
+$desktop: 'screen and (min-width: 901px)';
+$margin: 0.7rem;
+
+@media #{$desktop} {
+	html, body {overflow: hidden;}
+}
+app-root, app-editor, app-preview {display: block;}
+
+.editor {
+	@media #{$desktop} {
+		& {position: absolute; z-index: 1; left: 0; top: 0; width: 100vw; height: 100vh; display: flex; flex-direction: row;}
+	}
+
+	button {color: #FFF; padding: 0.4rem 0.8rem; @include background-hover(#606060); cursor: pointer;}
+	button:disabled {color: #D1D1D1; background: #484848;}
+	i.mr {margin-right: 0.25rem;}
+	i.ml {margin-left: 0.25rem;}
+
+	.sidebar {color: #FFF; background: #161616;}
+	@media #{$desktop} {
+		.sidebar {width: 28%; min-width: 350px; max-width: 400px;}
+		.sidebar .container {height: 100%; display: flex; flex-direction: column;}
+	}
+
+	.sidebar .header {
+		& {display: table; width: 100%; padding: $margin 0;}
+		.logo {display: table-cell; vertical-align: middle;}
+		.logo h1 {font-size: 25px; line-height: 1rem; margin: 0 $margin;}
+		.logo sup {font-size: 12px; line-height: 1rem; font-weight: normal;}
+		.control {position: relative; z-index: 20; display: table-cell; text-align: right;}
+		.control button {padding: 0.4rem 1rem; margin-right: $margin;}
+		.control button.publish {color: #000; @include background-hover(#EAEAEA);}
+		.control .menu {position: absolute; right: $margin; text-align: left; box-shadow: 0 3px 3px rgba(0, 0, 0, 0.6);}
+		.control .menu ul li {padding: $margin $margin * 2; white-space: nowrap; @include background-hover(#606060); cursor: pointer;}
+	}
+
+	.sidebar .zones {
+		& {display: table; width: 100%; padding: $margin 0; background: #303030;}
+		.label {display: table-cell; width: 45%; padding: 0 $margin;}
+		.label i.fas {margin-right: 0.3rem;}
+		.value {display: table-cell; padding: 0 $margin;}
+		.value select {width: 100%; padding: 0.4rem 0.6rem; box-sizing: border-box; color: #FFF; background: #161616;}
+	}
+
+	.sidebar .sections {
+		& {overflow: auto;}
+		@media #{$desktop} {
+			& {flex: 1;}
+		}
+
+		.section {
+			& {margin: $margin * 1.3 0;}
+
+			.tabs ul {margin: 0 $margin;}
+			.tabs ul li {display: inline-block; padding: 0.4rem 1rem; cursor: pointer; font-weight: bold;}
+			.tabs ul li.selected {@include background-hover(#303030);}
+
+			.body {background: #303030; padding: $margin / 2 0; overflow: hidden;}
+			.body .property {display: table; width: 100%; margin: $margin / 2 0;}
+			.body .property .label {display: table-cell; width: 45%; padding: 0 $margin; vertical-align: middle;}
+			.body .property .label i {vertical-align: middle;}
+			.body .property .label .name {display: inline-block; vertical-align: middle;}
+			.body .property .label .name .description {display: block; margin-top: -0.2rem; font-size: 10px; line-height: 1.25rem; color: #C5C5C5;}
+			.body .property.invalid .label {color: #FFFF00;}
+			.body .property .label i.fas {margin-right: 0.3rem;}
+			.body .property .value {
+				& {display: table-cell; padding: 0 $margin; vertical-align: middle;}
+
+				input[type=text], input[type=date], input[type=time] {width: 100%; color: #FFF; background: #161616; box-sizing: border-box; padding: 0.4rem 0.6rem;}
+				input[type=color] {width: 100%;}
+				input[type=checkbox] {margin: 0.2rem 0; cursor: pointer;}
+				select {width: 100%; padding: 0.4rem 0.6rem; box-sizing: border-box; color: #FFF; background: #161616;}
+				span.image-picker {position: relative; display: inline-block; vertical-align: middle; cursor: pointer; @include background-hover(#464646);}
+				span.image-picker span.placeholder {display: flex; position: relative; z-index: 2; width: 100%; height: 100%; justify-content: center; align-items: center;}
+				span.image-picker span.placeholder span.size {padding: 0.05rem 0.2rem; font-size: 10px; color: #FFF; background: #1A1A1A; opacity: 0.7;}
+				span.image-picker img {position: absolute; left: 0; top: 0; z-index: 1;}
+				button.image-picker-clear {padding: 0.15rem 0.5rem; margin: 0 .5rem; vertical-align: middle;}
+				span.info-after-button {margin-left: 0.5rem;}
+			}
+			.body .children {
+				& {padding-left: $margin;}
+				.child {margin: 0.3rem 0; background: #3B3B3B; overflow: hidden;}
+				.child .control {display: flex; align-items: center; margin: 0 $margin; flex-direction: row;}
+				.child .control span.occurcene {flex: 1; color: #C5C5C5;}
+				.child .control button {margin-left: 0.2rem;}
+			}
+		}
+	}
+
+	.main-body {
+		@media #{$desktop} {
+			& {display: flex; flex-direction: column; flex: 1;}
+		}
+
+		.page-tabs {background: #161616; color: #FFF;}
+		.page-tabs ul li {display: inline-block; padding: 0.4rem 1rem; font-weight: bold; cursor: pointer;}
+		.page-tabs ul li.selected {@include background-hover(#303030);}
+
+		app-preview, .preview iframe {width: 100%; height: 100%;}
+		@media #{$desktop} {
+			.preview {flex: 1;}
+		}
+		@media #{$mobile} {
+			.preview {height: 90vh; overflow: hidden;}
+		}
+	}
+
+	.popup {
+		& {position: fixed; display: flex; z-index: 9999; left: 0; top: 0; right: 0; bottom: 0; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.85);}
+		.window {color: #FFF; background: #161616; box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);}
+		@media #{$desktop} {
+			.window {width: 35%;}
+			&.wide .window {width: 80%;}
+		}
+		@media #{$mobile} {
+			.window {width: 100%;}
+		}
+
+		.header {position: relative; padding: $margin;}
+		.header button.close {position: absolute; right: 0; top: 0;}
+		.body {padding: $margin; }
+		.footer {padding: $margin; background: #303030; text-align: center;}
+		.footer button {margin: 0 $margin / 2;}
+
+		.body .image-picker .preview {margin-bottom: $margin; text-align: center;}
+		.body .image-picker input[type=file] {width: 100%;}
+
+		.body .html-editor textarea {padding: 1rem; width: 100%; height: 300px; box-sizing: border-box; line-height: 1.25rem; resize: vertical; color: #FFF; background: #303030;}
+
+		.body .import input[type=file] {width: 100%;}
+
+		.body .text p {padding: $margin * 0.5 0;}
+		.body .text h4 {padding: $margin 0; font-size: 15px; line-height: 1rem;}
+		.body .text a {color: #FFF;}
+		.body .text a:hover {text-decoration: underline;}
+		.body .text a.big {display: inline-block; padding: 0.4rem 0.8rem; color: #FFF; text-decoration: none !important; @include background-hover(#303030);}
+		.body .text div.dl {display: table; width: 100%; margin: $margin * 0.5 0;}
+		.body .text div.dl div.label {display: table-cell; width: 20%; vertical-align: middle;}
+		.body .text div.dl div.value {display: table-cell; vertical-align: middle;}
+	}
+}

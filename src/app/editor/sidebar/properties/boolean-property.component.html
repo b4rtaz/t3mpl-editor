@@ -1,0 +1,12 @@
+<div class="property" [class.invalid]="validationError">
+	<div class="label">
+		<i class="fas fa-check fa-fw fa-lg" [title]="dataPath"></i>
+		<span class="name">
+			{{property._label}} <ng-container *ngIf="property.required">*</ng-container>
+			<span *ngIf="property._description" class="description">({{property._description}})</span>
+		</span>
+	</div>
+	<div class="value">
+		<input type="checkbox" [checked]="value" (change)="onChanged($event.currentTarget.checked)" />
+	</div>
+</div>

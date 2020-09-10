@@ -1,0 +1,16 @@
+body {
+	font: 18px/1rem 'Open Sans', Arial;
+	color: #313131;
+	background: #CECECE;
+}
+a {
+	color: #313131;
+	text-decoration: underline;
+}
+a:hover {
+	text-decoration: none;
+}
+hr {
+	border: none;
+	border-top: 1px solid #7E7E7E;
+}

@@ -1,0 +1,22 @@
+<div class="property" [class.invalid]="validationError">
+	<div class="label">
+		<i class="fas fa-list fa-fw fa-lg" [title]="dataPath"></i>
+		<span class="name">
+			{{property._label}} <ng-container *ngIf="property.required">*</ng-container>
+			<span *ngIf="property._description" class="description">({{property._description}})</span>
+		</span>
+	</div>
+	<div class="value">
+		<select (change)="onValueChanged($event.target.value)">
+			<option
+				*ngIf="!property.required || value === null"
+				[selected]="value === null"></option>
+			<option
+				*ngFor="let v of orderedValues"
+				[value]="v.value"
+				[selected]="v.value === value">
+				{{v.label}}
+			</option>
+		</select>
+	</div>
+</div>

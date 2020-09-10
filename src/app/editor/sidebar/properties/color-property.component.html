@@ -1,0 +1,12 @@
+<div class="property" [class.invalid]="validationError">
+	<div class="label">
+		<i class="fas fa-palette fa-fw fa-lg" [title]="dataPath"></i>
+		<span class="name">
+			{{property._label}} <ng-container *ngIf="property.required">*</ng-container>
+			<span *ngIf="property._description" class="description">({{property._description}})</span>
+		</span>
+	</div>
+	<div class="value">
+		<input type="color" [value]="value" (change)="onChanged($event.target.value)" autocomplete="off" />
+	</div>
+</div>
