@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { EditorComponent } from './editor.component';
 import { PageTabsComponent } from './page-tabs.component';
+import { ConfirmPopupComponent } from './popups/confirm/confirm-popup.component';
+import { ConfirmPopupService } from './popups/confirm/confirm-popup.service';
 import { ExportPopupComponent } from './popups/export/export-popup.component';
 import { ExportPopupService } from './popups/export/export-popup.service';
 import { DataZipGenerator } from './popups/export/generators/data-zip-generator';
@@ -57,6 +59,7 @@ import { StateService } from './state.service';
 		ImagePropertyComponent,
 		ColorPropertyComponent,
 
+		ConfirmPopupComponent,
 		ImagePickerPopupComponent,
 		HtmlEditorPopupComponent,
 		MarkdownEditorPopupComponent,
@@ -65,6 +68,7 @@ import { StateService } from './state.service';
 		TemplateInfoPopupComponent
 	],
 	entryComponents: [
+		ConfirmPopupComponent,
 		ImagePickerPopupComponent,
 		HtmlEditorPopupComponent,
 		MarkdownEditorPopupComponent,
@@ -79,6 +83,7 @@ import { StateService } from './state.service';
 	providers: [
 		StateService,
 		PopupService,
+		ConfirmPopupService,
 
 		TemplatePreviewRenderer,
 		DataPreviewRenderer,

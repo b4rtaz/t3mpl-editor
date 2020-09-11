@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { PROJECT_WEBSITE_URL } from 't3mpl-core/core/constants';
 import { SectionContractMap, ZoneContractMap } from 't3mpl-core/core/model';
 
 import { version } from '../../../../package.json';
+import { ConfirmPopupService } from '../popups/confirm/confirm-popup.service';
 import { ExportPopupService } from '../popups/export/export-popup.service';
 import { ImportPopupService } from '../popups/import/import-popup.service';
 import { TemplateInfoPopupService } from '../popups/template-info/template-info-popup.service';
@@ -27,6 +29,7 @@ export class SidebarComponent implements OnInit {
 
 	public constructor(
 		private readonly stateService: StateService,
+		private readonly confirmPopupService: ConfirmPopupService,
 		private readonly exportPopupService: ExportPopupService,
 		private readonly importPopupService: ImportPopupService,
 		private readonly templateInfoPopupService: TemplateInfoPopupService) {
@@ -61,9 +64,12 @@ export class SidebarComponent implements OnInit {
 	}
 
 	public publish() {
-		if (this.confirmValidation()) {
-			this.exportPopupService.open('publish');
-		}
+		this.confirmValidation()
+			.subscribe(result => {
+				if (result) {
+					this.exportPopupService.open('publish');
+				}
+			});
 	}
 
 	public importTemplate() {
@@ -79,15 +85,22 @@ export class SidebarComponent implements OnInit {
 	}
 
 	public exportData() {
-		if (this.confirmValidation()) {
-			this.exportPopupService.open('data');
-		}
+		this.confirmValidation()
+			.subscribe(result => {
+				if (result) {
+					this.exportPopupService.open('data');
+				}
+			});
 	}
 
-	private confirmValidation(): boolean {
+	private confirmValidation(): Observable<boolean> {
 		const invalidPropertyNames = this.stateService.validateAll();
-		// TODO: popup
-		return invalidPropertyNames.length === 0 || confirm('There are validation errors. Do you want to continue?');
+
+		if (invalidPropertyNames.length === 0) {
+			return of(true);
+		} else {
+			return this.confirmPopupService.prompt('Validation errors', 'There are validation errors. Do you want to continue?');
+		}
 	}
 
 	public setPreviewMode(mode: PreviewMode) {

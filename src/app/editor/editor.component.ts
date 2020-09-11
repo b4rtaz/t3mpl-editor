@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { DataActivator } from 't3mpl-core/core/data/data-activator';
 import { MemoryStorage } from 't3mpl-core/core/memory-storage';
 
+import { ConfirmPopupService } from './popups/confirm/confirm-popup.service';
 import { PopupService } from './popups/popup.service';
 import { RemoteTemplateLoader, Template } from './remote-template-loader';
 import { StateService } from './state.service';
@@ -21,6 +22,7 @@ export class EditorComponent implements OnInit {
 
 	public constructor(
 		private readonly popupService: PopupService,
+		private readonly confirmPopupService: ConfirmPopupService,
 		private readonly stateService: StateService,
 		private readonly titleService: Title) {
 	}
@@ -36,7 +38,13 @@ export class EditorComponent implements OnInit {
 
 	private loadRemoteTemplate(manifestUrl: string) {
 		const loader = new RemoteTemplateLoader();
-		loader.load(manifestUrl).then(t => this.loadedTemplate(t));
+		loader.load(manifestUrl)
+			.then(t => this.loadedTemplate(t))
+			.catch(e => {
+				const message = e instanceof Error ? e.message : e.toString();
+				this.confirmPopupService.ok('An error occurred', `Cannot load a template. ${message}`);
+				console.error(e);
+			});
 	}
 
 	private loadedTemplate(template: Template) {

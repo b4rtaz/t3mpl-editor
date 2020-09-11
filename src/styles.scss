@@ -3,7 +3,7 @@ html, body, h1, h2, h3, h4, h5, h6, p, ul, ol, input, select, button, iframe, te
 ul {list-style-type: none;}
 a {text-decoration: none;}
 
-body, input, select, option, button {font: 12px/1.3rem 'Open Sans';}
+body, input, select, option, button {font: 12px/1.3rem 'Open Sans', 'Helvetica Neue', Arial, Tahoma, Verdana, Serif;}
 
 @mixin background-hover($color) {
 	& {background: $color; transition: background-color 0.15s linear;}

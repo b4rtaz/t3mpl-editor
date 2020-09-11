@@ -1,0 +1,23 @@
+<div class="popup">
+	<div class="window">
+		<div class="header">
+			<h3>{{title}}</h3>
+			<button class="close" (click)="close(false)">
+				<i class="fas fa-times fa-lg"></i>
+			</button>
+		</div>
+		<div class="body">
+			<div class="text">
+				<p>{{message}}</p>
+			</div>
+		</div>
+		<div class="footer">
+			<button (click)="close(true)">
+				<i class="fas fa-check fa-sm fa-fw mr"></i> OK
+			</button>
+			<button (click)="close(false)" *ngIf="isCancelVisible">
+				<i class="fas fa-times fa-fw fa-sm mr"></i> Cancel
+			</button>
+		</div>
+	</div>
+</div>
