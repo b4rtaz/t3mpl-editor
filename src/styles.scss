@@ -18,6 +18,9 @@ $margin: 0.7rem;
 	html, body {overflow: hidden;}
 }
 app-root, app-editor, app-preview {display: block;}
+@media #{$mobile} {
+	.desktop-only {display: none !important;}
+}
 
 .editor {
 	@media #{$desktop} {
@@ -105,16 +108,23 @@ app-root, app-editor, app-preview {display: block;}
 			& {display: flex; flex-direction: column; flex: 1;}
 		}
 
-		.page-tabs {background: #161616; color: #FFF;}
-		.page-tabs ul li {display: inline-block; padding: 0.4rem 1rem; font-weight: bold; cursor: pointer;}
-		.page-tabs ul li.selected {@include background-hover(#303030);}
+		.page-tabs {display: flex; flex-direction: row; align-items: center; width: 100%; background: #161616; color: #FFF;}
+		.page-tabs .tabs {flex: 1;}
+		.page-tabs .tabs ul li {display: inline-block; padding: 0.4rem 1rem; font-weight: bold; cursor: pointer;}
+		.page-tabs .tabs ul li.selected {@include background-hover(#303030);}
+		.page-tabs .modes {padding: 0 0.5rem;}
+		.page-tabs .modes .mode {display: inline-block; margin: 0 0.1rem; padding: 0.1rem; text-align: center; cursor: pointer;}
+		.page-tabs .modes .mode.selected {background: #FFF; color: #1A1A1A;}
 
-		app-preview, .preview iframe {width: 100%; height: 100%;}
+		.preview, .preview iframe {width: 100%; height: 100%;}
+		.preview {background: #B2B2B2;}
+		.preview iframe {background: #FFF;}
 		@media #{$desktop} {
-			.preview {flex: 1;}
+			app-preview {flex: 1;}
+			.preview iframe.mobile {width: 375px; height: 667px; margin: 0 auto;}
 		}
 		@media #{$mobile} {
-			.preview {height: 90vh; overflow: hidden;}
+			app-preview {height: 90vh; overflow: hidden;}
 		}
 	}
 

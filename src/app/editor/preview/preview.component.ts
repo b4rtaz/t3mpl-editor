@@ -17,6 +17,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
 	@ViewChild('iframe', { static: true })
 	public iframe: ElementRef<HTMLIFrameElement>;
 
+	public isMobileMode = false;
+
 	private scrollTop: number = null;
 
 	private onMessageReceivedHandler = (m: MessageEvent) => this.onMessageReceived(m);
@@ -48,16 +50,22 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
 	private render() {
 		let content: string;
+		let isMobileMode: boolean;
 		switch (this.stateService.previewMode) {
-			case 'template':
+			case 'desktop':
+			case 'mobile':
 				content = this.templatePreviewRenderer.render();
+				isMobileMode = this.stateService.previewMode === 'mobile';
 				break;
 			case 'data':
 				content = this.dataPreviewRenderer.render();
+				isMobileMode = false;
 				break;
 		}
 
+		this.isMobileMode = isMobileMode;
 		this.setContent(content);
+
 		if (this.scrollTop) {
 			this.iframe.nativeElement.contentWindow.scrollTo(0, this.scrollTop);
 		}

@@ -8,7 +8,7 @@ import { ConfirmPopupService } from '../popups/confirm/confirm-popup.service';
 import { ExportPopupService } from '../popups/export/export-popup.service';
 import { ImportPopupService } from '../popups/import/import-popup.service';
 import { TemplateInfoPopupService } from '../popups/template-info/template-info-popup.service';
-import { PreviewMode, StateService } from '../state.service';
+import { StateService } from '../state.service';
 
 @Component({
 	selector: 'app-sidebar',
@@ -20,7 +20,6 @@ export class SidebarComponent implements OnInit {
 	public templateName: string;
 	public canExportTemplate: boolean;
 	public isMenuVisible: boolean;
-	public previewMode: PreviewMode;
 
 	public zones: ZoneContractMap;
 	public currentZoneName: string;
@@ -44,7 +43,6 @@ export class SidebarComponent implements OnInit {
 
 		this.templateName = manifest.meta.name;
 		this.canExportTemplate = manifest.meta.exportable;
-		this.previewMode = this.stateService.previewMode;
 		this.zones = manifest.dataContract.zones;
 
 		const firstZoneName = Object.keys(manifest.dataContract.zones)[0];
@@ -101,11 +99,6 @@ export class SidebarComponent implements OnInit {
 		} else {
 			return this.confirmPopupService.prompt('Validation errors', 'There are validation errors. Do you want to continue?');
 		}
-	}
-
-	public setPreviewMode(mode: PreviewMode) {
-		this.previewMode = mode;
-		this.stateService.setPreviewMode(mode);
 	}
 
 	public openTemplateInfo() {

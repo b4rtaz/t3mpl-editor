@@ -22,7 +22,7 @@ export class StateService {
 	public pages: Page[];
 	public currentPage: Page;
 
-	public previewMode: PreviewMode = 'template';
+	public previewMode: PreviewMode = 'desktop';
 
 	public templateManifest: TemplateManifest;
 	public templateStorage: ReadableStorage;
@@ -113,4 +113,4 @@ export class StateService {
 	}
 }
 
-export type PreviewMode = 'data' | 'template';
+export type PreviewMode = 'desktop' | 'mobile' | 'data';

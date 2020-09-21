@@ -57,7 +57,7 @@ dataContract:
         properties:
           COPYRIGHT:
             type: (text)
-            defaultValue: All rights reserved.
+            defaultValue: All rights reserved
           POWERED_BY:
             type: (boolean)
             defaultValue: true

@@ -1,9 +1,24 @@
-<ul>
-	<li
-		*ngFor="let filePath of filePaths"
-		[class.selected]="filePath === currentFilePath"
-		(click)="change(filePath)">
-		<i class="fas fa-code mr"></i>
-		{{filePath}}
-	</li>
-</ul>
+<div class="page-tabs">
+	<div class="tabs">
+		<ul>
+			<li
+				*ngFor="let filePath of filePaths"
+				[class.selected]="filePath === currentFilePath"
+				(click)="openPage(filePath)">
+				<i class="fas fa-code mr"></i>
+				{{filePath}}
+			</li>
+		</ul>	
+	</div>
+	<div class="modes">
+		<span class="mode" [class.selected]="previewMode === 'desktop'" (click)="changeMode('desktop')" title="Desktop mode">
+			<i class="fas fa-desktop fa-lg fa-fw"></i>
+		</span>
+		<span class="mode desktop-only" [class.selected]="previewMode === 'mobile'" (click)="changeMode('mobile')" title="Mobile mode">
+			<i class="fas fa-mobile-alt fa-lg fa-fw"></i>
+		</span>
+		<span class="mode" [class.selected]="previewMode === 'data'" (click)="changeMode('data')" title="Data mode">
+			<i class="fas fa-database fa-lg fa-fw"></i>
+		</span>
+	</div>	
+</div>

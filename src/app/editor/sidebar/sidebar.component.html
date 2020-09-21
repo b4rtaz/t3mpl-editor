@@ -31,14 +31,6 @@
 						<i class="fas fa-file-import fa-fw mr"></i>
 						Export data .t3data
 					</li>
-					<li *ngIf="templateName && previewMode === 'template'" (click)="setPreviewMode('data'); isMenuVisible = false">
-						<i class="fas fa-code fa-fw mr"></i>
-						Show data
-					</li>
-					<li *ngIf="templateName && previewMode === 'data'" (click)="setPreviewMode('template'); isMenuVisible = false">
-						<i class="fas fa-eye fa-fw mr"></i>
-						Show template
-					</li>
 					<li *ngIf="templateName" (click)="openTemplateInfo(); isMenuVisible = false">
 						<i class="fas fa-info fa-fw mr"></i>
 						About template
