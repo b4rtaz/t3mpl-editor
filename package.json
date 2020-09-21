@@ -6,6 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --prod=true --base-href=http://t3mpl.n4no.com/",
     "test": "ng test",
     "test:single": "ng test --watch=false --no-progress --browsers=ChromeHeadless",
     "lint": "ng lint",
@@ -34,7 +35,7 @@
     "marked": "^1.1.1",
     "moment": "^2.28.0",
     "rxjs": "~6.6.3",
-    "t3mpl-core": "file://../t3mpl-core",
+    "t3mpl-core": "^0.1.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },
