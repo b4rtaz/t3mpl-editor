@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "ng build --prod=true --base-href=http://t3mpl.n4no.com/",
+    "build:prod": "ng build --prod=true --base-href=http://t3mpl.n4no.com/editor/",
     "test": "ng test",
     "test:single": "ng test --watch=false --no-progress --browsers=ChromeHeadless",
     "lint": "ng lint",
