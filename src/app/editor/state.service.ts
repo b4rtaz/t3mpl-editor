@@ -100,17 +100,24 @@ export class StateService {
 	private reloadPages(fireEvent: boolean) {
 		const prevPages = this.pages;
 		this.pages = this.pageResolver.resolve(this.templateManifest.pages, this.data);
-		if (!this.currentPage || !this.pages.find(p => p.filePath === this.currentPage.filePath)) {
-			this.currentPage = this.pages.length > 0 ? this.pages[0] : null;
-			if (fireEvent) {
-				this.onPageChanged.next();
-			}
-		} else if (prevPages.length !== this.pages.length || this.pages.find((p, ix) => p.filePath !== prevPages[ix].filePath)) {
+		const newCurrentPage = getNextCurrentPage(prevPages, this.pages, this.currentPage);
+		if (newCurrentPage) {
+			this.currentPage = newCurrentPage;
 			if (fireEvent) {
 				this.onPageChanged.next();
 			}
 		}
 	}
+}
+
+export function getNextCurrentPage(prevPages: Page[], newPages: Page[], currentPage: Page) {
+	if (!currentPage || !newPages.find(p => p.filePath === currentPage.filePath)) {
+		return newPages.length > 0 ? newPages[0] : null;
+	}
+	if (prevPages.length !== newPages.length) {
+		return currentPage;
+	}
+	return null;
 }
 
 export type PreviewMode = 'desktop' | 'mobile' | 'data';
