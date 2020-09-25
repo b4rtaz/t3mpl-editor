@@ -1,0 +1,15 @@
+
+	<hr />
+
+	<p>{{{$copyright}}} {{COMMON.FOOTER.COPYRIGHT}}</p>
+
+	{{#if COMMON.FOOTER.POWERED_BY}}
+	<p><small>{{{$powered_by}}}</small></p>
+	{{/if}}
+
+	{{#if COMMON.FOOTER.POST_HTML}}
+		{{{$html COMMON.FOOTER.POST_HTML}}}
+	{{/if}}
+
+</body>
+</html>

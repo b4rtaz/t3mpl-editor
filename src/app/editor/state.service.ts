@@ -114,7 +114,7 @@ export function getNextCurrentPage(prevPages: Page[], newPages: Page[], currentP
 	if (!currentPage || !newPages.find(p => p.filePath === currentPage.filePath)) {
 		return newPages.length > 0 ? newPages[0] : null;
 	}
-	if (prevPages.length !== newPages.length) {
+	if (prevPages.length !== newPages.length || newPages.find((p, ix) => p.filePath !== prevPages[ix].filePath)) {
 		return currentPage;
 	}
 	return null;

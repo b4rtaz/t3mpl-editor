@@ -9,11 +9,31 @@ meta:
   filePaths:
     - license.txt
     - index.html
+    - page.html
+    - header.partial
+    - footer.partial
     - assets/style.css
     - assets/favicon.png
     - assets/og-image.png
 
 dataContract:
+
+  PAGES:
+    sections:
+     PAGES:
+       properties:
+         PAGES:
+           type: (collection)
+           defaultOccurrences: 1
+           properties:
+             TITLE:
+               type: (text)
+               defaultValue: Page
+             FILE_PATH:
+               type: (text)
+               required: false
+             CONTENT:
+               type: (markdown)
 
   COMMON:
     _label: Common
@@ -66,7 +86,15 @@ dataContract:
             _label: Post HTML
             _description: i.e. plugins, tracking
             required: false
+
 pages:
   INDEX:
     filePath: index.html
     templateFilePath: index.html
+
+  PAGE:
+    filePath: page.html
+    templateFilePath: page.html
+    multiplier:
+      dataPath: PAGES.PAGES.PAGES
+      fileNameDataPath: FILE_PATH

@@ -5,6 +5,7 @@ import { getNextCurrentPage } from './state.service';
 describe('StateService', () => {
 
 	it('getNextCurrentPage() returns proper value', () => {
+		const pageO = { filePath: 'o.html', name: 'O', templateFilePath: 'o.html' };
 		const pages1: Page[] = [
 			{ filePath: 'a.html', name: 'A', templateFilePath: 'a.html' },
 			{ filePath: 'b.html', name: 'B', templateFilePath: 'b.html' },
@@ -13,7 +14,10 @@ describe('StateService', () => {
 
 		const pages2 = [...pages1];
 		pages2.splice(1, 2);
-		pages2.push({ filePath: 'o.html', name: 'O', templateFilePath: 'o.html' });
+		pages2.push(pageO);
+
+		const pages3 = [...pages1];
+		pages3.push(pageO);
 
 		const r1 = getNextCurrentPage(pages1, pages1, pages1[1]);
 		expect(r1).toBeNull();
@@ -26,5 +30,8 @@ describe('StateService', () => {
 
 		const r4 = getNextCurrentPage(pages1, pages2, pages1[1]);
 		expect(r4.filePath).toEqual('a.html');
+
+		const r5 = getNextCurrentPage(pages1, pages3, pages1[0]);
+		expect(r5.filePath).toEqual('a.html');
 	});
 });

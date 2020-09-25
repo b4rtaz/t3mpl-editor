@@ -24,6 +24,10 @@ npm install
 npm run start
 ```
 
+To open a template from `src/templates/` directory add `#manifest=path` to URL.
+
+`http://localhost:4200/#manifest=templates/boilerplate/template.yaml`
+
 #### Build
 
 ```

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { DataActivator } from 't3mpl-core/core/data/data-activator';
 import { MemoryStorage } from 't3mpl-core/core/memory-storage';
@@ -12,7 +12,7 @@ import { StateService } from './state.service';
 	selector: 'app-editor',
 	templateUrl: './editor.component.html'
 })
-export class EditorComponent implements OnInit {
+export class EditorComponent implements OnInit, OnChanges {
 
 	@Input()
 	public manifestUrl: string;
@@ -30,7 +30,9 @@ export class EditorComponent implements OnInit {
 	public ngOnInit() {
 		this.popupService.setContainer(this.container);
 		this.stateService.onStateChanged.subscribe(() => this.onStateChanged());
+	}
 
+	public ngOnChanges() {
 		if (this.manifestUrl) {
 			this.loadRemoteTemplate(this.manifestUrl);
 		}

@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit } from '@angular/core';
 
 @Component({
 	selector: 'app-root',
@@ -14,6 +14,15 @@ export class AppComponent implements OnInit {
 	}
 
 	public ngOnInit() {
+		this.tryReadHash();
+	}
+
+	@HostListener('window:hashchange')
+	public onHashChanged() {
+		this.tryReadHash();
+	}
+
+	private tryReadHash() {
 		const hash = this.document.location.hash;
 		const matches = hash.match(/manifest=([^&]*)/);
 		if (matches) {

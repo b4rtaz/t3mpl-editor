@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html dir="{{COMMON.META.DIRECTION}}" lang="{{COMMON.META.LANGUAGE}}">
+<head>
+	<meta charset="UTF-8" />
+	<title>{{#if _title}}{{_title}} - {{/if}}{{COMMON.META.TITLE}}</title>
+
+	<meta name="description" content="{{COMMON.META.DESCRIPTION}}" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="icon" href="{{$image COMMON.META.FAVICON}}" />
+
+	<meta property="og:title" content="{{#if _title}}{{_title}} - {{/if}}{{COMMON.META.TITLE}}" />
+	<meta property="og:description" content="{{COMMON.META.DESCRIPTION}}" />
+	<meta property="og:image" content="{{$image COMMON.META.OG_IMAGE}}" />
+
+	{{{$css 'assets/style.css'}}}
+
+	{{#if COMMON.META.PRE_HTML}}
+		{{{$html COMMON.META.PRE_HTML}}}
+	{{/if}}
+</head>
+<body>
+
+	<h1>
+		<img src="{{$image COMMON.META.FAVICON}}" />
+		{{COMMON.META.TITLE}}
+	</h1>
+	<h3>{{COMMON.META.DESCRIPTION}}</h3>
+
+	<nav>
+		{{{$page_link $PAGES.INDEX.FILE_PATH 'Index'}}}
+		{{#each $PAGES.PAGE}}
+			{{{$page_link FILE_PATH DATA.TITLE}}}
+		{{/each}}
+	</nav>
+
+	<hr />
