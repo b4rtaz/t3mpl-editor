@@ -20,20 +20,20 @@ dataContract:
 
   PAGES:
     sections:
-     PAGES:
-       properties:
-         PAGES:
-           type: (collection)
-           defaultOccurrences: 1
-           properties:
-             TITLE:
-               type: (text)
-               defaultValue: Page
-             FILE_PATH:
-               type: (text)
-               required: false
-             CONTENT:
-               type: (markdown)
+      PAGES:
+        properties:
+          PAGES:
+            type: (collection)
+            defaultOccurrences: 1
+            properties:
+              TITLE:
+                type: (text)
+                defaultValue: Page
+              FILE_PATH:
+                type: (text)
+                required: false
+              CONTENT:
+                type: (markdown)
 
   COMMON:
     _label: Common
