@@ -3,19 +3,20 @@ import { Subject } from 'rxjs';
 import { DataActivator } from 't3mpl-core/core/data/data-activator';
 import { DataPath } from 't3mpl-core/core/data/data-path';
 import { DataValidator } from 't3mpl-core/core/data/data-validator';
-import { Page, PropertyContract, PropertyContractMap, TemplateManifest } from 't3mpl-core/core/model';
+import { Page, PropertyContract, PropertyContractMap, TemplateConfiguration, TemplateManifest } from 't3mpl-core/core/model';
 import { PagesResolver } from 't3mpl-core/core/pages-resolver';
 import { ReadableStorage, WritableStorage } from 't3mpl-core/core/storage';
+import { getDefaultConfiguration } from 't3mpl-core/core/template-configuration';
 
 @Injectable()
 export class StateService {
 
 	private dataActivator: DataActivator;
 	private dataValidator: DataValidator;
-	private pageResolver: PagesResolver;
 
 	public onStateChanged: Subject<string> = new Subject();
 	public onDataChanged: Subject<string> = new Subject();
+	public onConfigurationChanged: Subject<void> = new Subject();
 	public onPageChanged: Subject<string> = new Subject();
 	public onPreviewModeChanged: Subject<void> = new Subject();
 
@@ -27,18 +28,25 @@ export class StateService {
 	public templateManifest: TemplateManifest;
 	public templateStorage: ReadableStorage;
 	public contentStorage: WritableStorage;
+	public configuration: TemplateConfiguration;
 	public data: any;
 
 	//
 
-	public setState(templateManifest: TemplateManifest, templateStorage: ReadableStorage, contentStorage: WritableStorage, data: any = null) {
+	public setState(
+		templateManifest: TemplateManifest,
+		templateStorage: ReadableStorage,
+		contentStorage: WritableStorage,
+		configuration?: TemplateConfiguration,
+		data?: any) {
+
 		this.dataActivator = new DataActivator(templateStorage, contentStorage);
 		this.dataValidator = new DataValidator();
-		this.pageResolver = new PagesResolver();
 
 		this.templateManifest = templateManifest;
 		this.templateStorage = templateStorage;
 		this.contentStorage = contentStorage;
+		this.configuration = configuration ? configuration : getDefaultConfiguration();
 		this.data = data ? data : this.dataActivator.createInstance(templateManifest.dataContract);
 
 		this.currentPage = null;
@@ -52,9 +60,15 @@ export class StateService {
 		this.onPreviewModeChanged.next();
 	}
 
-	public setCurrentPage(pageFilePath: string) {
-		this.currentPage = this.pages.find(p => p.filePath === pageFilePath);
+	public setCurrentPage(pageVirtualFilePath: string) {
+		this.currentPage = this.pages.find(p => p.virtualFilePath === pageVirtualFilePath);
 		this.onPageChanged.next();
+	}
+
+	public setConfiguration(configuration: TemplateConfiguration) {
+		this.configuration = configuration;
+		this.reloadPages(true);
+		this.onConfigurationChanged.next();
 	}
 
 	public validate<T>(propertyContract: PropertyContract, dataPath: string, value: T): string {
@@ -99,7 +113,8 @@ export class StateService {
 
 	private reloadPages(fireEvent: boolean) {
 		const prevPages = this.pages;
-		this.pages = this.pageResolver.resolve(this.templateManifest.pages, this.data);
+		const pagesResolver = new PagesResolver(this.configuration.pagePathStrategy);
+		this.pages = pagesResolver.resolve(this.templateManifest.pages, this.data);
 		const newCurrentPage = getNextCurrentPage(prevPages, this.pages, this.currentPage);
 		if (newCurrentPage) {
 			this.currentPage = newCurrentPage;
@@ -111,10 +126,10 @@ export class StateService {
 }
 
 export function getNextCurrentPage(prevPages: Page[], newPages: Page[], currentPage: Page) {
-	if (!currentPage || !newPages.find(p => p.filePath === currentPage.filePath)) {
+	if (!currentPage || !newPages.find(p => p.virtualFilePath === currentPage.virtualFilePath)) {
 		return newPages.length > 0 ? newPages[0] : null;
 	}
-	if (prevPages.length !== newPages.length || newPages.find((p, ix) => p.filePath !== prevPages[ix].filePath)) {
+	if (prevPages.length !== newPages.length || newPages.find((p, ix) => p.virtualFilePath !== prevPages[ix].virtualFilePath)) {
 		return currentPage;
 	}
 	return null;

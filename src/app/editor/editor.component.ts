@@ -59,6 +59,7 @@ export class EditorComponent implements OnInit, OnChanges {
 			template.templateManifest,
 			template.templateStorage,
 			contentStorage,
+			null,
 			data);
 	}
 

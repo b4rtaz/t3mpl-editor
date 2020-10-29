@@ -25,7 +25,7 @@ export class ReleaseZipGenerator {
 				this.stateService.contentStorage,
 				new PagesDataGenerator());
 
-			const pagesResolver = new PagesResolver();
+			const pagesResolver = new PagesResolver(this.stateService.configuration.pagePathStrategy);
 
 			const zip = new JSZip();
 			exportRelease(

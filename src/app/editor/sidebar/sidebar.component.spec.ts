@@ -2,7 +2,7 @@ import { SectionContractMap } from 't3mpl-core/core/model';
 
 import { groupByPanel } from './sidebar.component';
 
-describe('SidebarComponent', () => {
+describe('groupByPanel()', () => {
 
 	it('groupByPanel() returns proper value', () => {
 		const map: SectionContractMap = {

@@ -75,8 +75,8 @@ app-root, app-editor, app-preview {display: block;}
 			.body .property {display: table; width: 100%; margin: $margin / 2 0;}
 			.body .property .label {display: table-cell; width: 45%; padding: 0 $margin; vertical-align: middle;}
 			.body .property .label i {vertical-align: middle;}
-			.body .property .label .name {display: inline-block; vertical-align: middle;}
-			.body .property .label .name .description {display: block; margin-top: -0.2rem; font-size: 10px; line-height: 1.25rem; color: #C5C5C5;}
+			.body .property .label span.name {display: inline-block; vertical-align: middle;}
+			.body .property .label span.name span.description {display: block; margin-top: -0.2rem; font-size: 10px; line-height: 1.25rem; color: #C5C5C5;}
 			.body .property.invalid .label {color: #FFFF00;}
 			.body .property .label i.fas {margin-right: 0.3rem;}
 			.body .property .value {
@@ -92,6 +92,11 @@ app-root, app-editor, app-preview {display: block;}
 				span.image-picker img {position: absolute; left: 0; top: 0; z-index: 1;}
 				button.image-picker-clear {padding: 0.15rem 0.5rem; margin: 0 .5rem; vertical-align: middle;}
 				span.info-after-button {margin-left: 0.5rem;}
+
+				span.radio-list ul li {margin: 3px 0;}
+				span.radio-list ul li label {cursor: pointer;}
+				span.radio-list ul li label input[type=radio] {vertical-align: middle;}
+				span.radio-list ul li span.description {display: block; color: #C5C5C5; font-size: 10px; line-height: 1.25rem;}
 			}
 			.body .children {
 				& {padding-left: $margin;}

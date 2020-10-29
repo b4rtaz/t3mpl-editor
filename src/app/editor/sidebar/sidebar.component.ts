@@ -19,12 +19,9 @@ export class SidebarComponent implements OnInit {
 	public readonly appVersion: string = version;
 	public templateName: string;
 	public canExportTemplate: boolean;
-	public isMenuVisible: boolean;
 
-	public zones: ZoneContractMap;
-	public currentZoneName: string;
-	public currentZoneLabel: string;
-	public currentSections: SectionContractMap[];
+	public items: SidebarItem[];
+	public currentItem: SidebarItem;
 
 	public constructor(
 		private readonly stateService: StateService,
@@ -43,22 +40,26 @@ export class SidebarComponent implements OnInit {
 
 		this.templateName = manifest.meta.name;
 		this.canExportTemplate = manifest.meta.exportable;
-		this.zones = manifest.dataContract.zones;
 
-		const firstZoneName = Object.keys(manifest.dataContract.zones)[0];
-		this.selectZone(firstZoneName);
+		const items: SidebarItem[] = Object.keys(manifest.dataContract.zones).map(zoneName => {
+			const zone = manifest.dataContract.zones[zoneName];
+			return {
+				type: 'zone',
+				label: zone._label,
+				zonePath: zoneName,
+				zoneSections: groupByPanel(zone.sections)
+			};
+		});
+		items.push({
+			type: 'configuration',
+			label: '⌊ Configuration'
+		});
+		this.items = items;
+		this.currentItem = items[0];
 	}
 
-	private selectZone(name: string) {
-		const manifest = this.stateService.templateManifest;
-		const zone = manifest.dataContract.zones[name];
-		this.currentZoneName = name;
-		this.currentZoneLabel = zone._label;
-		this.currentSections = groupByPanel(zone.sections);
-	}
-
-	public onZoneChanged(name: string) {
-		this.selectZone(name);
+	public onItemChanged(itemIndex: number) {
+		this.currentItem = this.items[itemIndex];
 	}
 
 	public publish() {
@@ -109,6 +110,15 @@ export class SidebarComponent implements OnInit {
 		window.open(PROJECT_WEBSITE_URL, '_blank');
 	}
 }
+
+interface SidebarItem {
+	type: SidebarItemType;
+	label: string;
+	zonePath?: string;
+	zoneSections?: SectionContractMap[];
+}
+
+type SidebarItemType = 'configuration' | 'zone';
 
 export function groupByPanel(map: SectionContractMap): SectionContractMap[] {
 	const paneled: { [panelName: string]: SectionContractMap } = {};

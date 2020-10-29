@@ -2,11 +2,11 @@
 	<div class="tabs">
 		<ul>
 			<li
-				*ngFor="let filePath of filePaths"
-				[class.selected]="filePath === currentFilePath"
-				(click)="openPage(filePath)">
+				*ngFor="let vfp of virtualFilePaths"
+				[class.selected]="vfp === currentVirtualFilePath"
+				(click)="openPage(vfp)">
 				<i class="fas fa-code mr"></i>
-				{{filePath}}
+				{{vfp}}
 			</li>
 		</ul>	
 	</div>

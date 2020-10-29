@@ -9,33 +9,33 @@
 			<button class="publish" *ngIf="templateName" (click)="publish()">
 				Publish <i class="fas fa-paper-plane fa-lg ml"></i>
 			</button>
-			<button class="openMenu" (click)="isMenuVisible = !isMenuVisible">
+			<button class="openMenu" appDropdown [target]="menu">
 				<i class="fas fa-bars fa-lg"></i>
 			</button>
 
-			<div class="menu" [hidden]="!isMenuVisible">
+			<div class="menu" #menu>
 				<ul>
-					<li (click)="importTemplate(); isMenuVisible = false">
+					<li (click)="importTemplate()">
 						<i class="fas fa-file-upload fa-fw mr"></i>
 						Import template .t3mpl
 					</li>
-					<li *ngIf="templateName && canExportTemplate" (click)="exportTemplate(); isMenuVisible = false">
+					<li *ngIf="templateName && canExportTemplate" (click)="exportTemplate()">
 						<i class="fas fa-file-import fa-fw mr"></i>
 						Export template .t3mpl
 					</li>
-					<li *ngIf="templateName" (click)="importData(); isMenuVisible = false">
+					<li *ngIf="templateName" (click)="importData()">
 						<i class="fas fa-file-upload fa-fw mr"></i>
 						Import data .t3data
 					</li>
-					<li *ngIf="templateName" (click)="exportData(); isMenuVisible = false">
+					<li *ngIf="templateName" (click)="exportData()">
 						<i class="fas fa-file-import fa-fw mr"></i>
 						Export data .t3data
 					</li>
-					<li *ngIf="templateName" (click)="openTemplateInfo(); isMenuVisible = false">
+					<li *ngIf="templateName" (click)="openTemplateInfo()">
 						<i class="fas fa-info fa-fw mr"></i>
 						About template
 					</li>
-					<li (click)="exploreTemplates(); isMenuVisible = false">
+					<li (click)="exploreTemplates()">
 						<i class="fas fa-star fa-fw mr"></i>
 						Explore templates
 					</li>
@@ -49,22 +49,29 @@
 			<i class="fas fa-cube fa-sm mr"></i> {{templateName}}
 		</div>
 		<div class="value">
-			<select (change)="onZoneChanged($event.target.value)">
+			<select (change)="onItemChanged($event.target.value)">
 				<option
-					*ngFor="let z of zones | keyvalue"
-					[value]="z.key"
-					[selected]="z.key === currentZoneName">
-					{{z.value._label}}
+					*ngFor="let item of items; let i = index"
+					[value]="i"
+					[selected]="item === currentItem">
+					{{item.label}}
 				</option>
 			</select>
 		</div>
 	</div>
 
 	<div class="sections">
-		<app-sections
-			*ngFor="let sections of currentSections"
-			[sections]="sections"
-			[dataPath]="currentZoneName">
-		</app-sections>
+
+		<ng-container *ngIf="currentItem?.type === 'zone'">
+			<app-sections
+				*ngFor="let sections of currentItem.zoneSections"
+				[sections]="sections"
+				[dataPath]="currentItem.zonePath">
+			</app-sections>
+		</ng-container>
+
+		<app-configuration *ngIf="currentItem?.type === 'configuration'">
+		</app-configuration>
+
 	</div>
 </div>

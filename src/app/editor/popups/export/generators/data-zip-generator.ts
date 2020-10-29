@@ -24,6 +24,7 @@ export class DataZipGenerator {
 
 			exportData(
 				this.stateService.templateManifest,
+				this.stateService.configuration,
 				this.stateService.data,
 				this.stateService.contentStorage,
 				dataSerializer,

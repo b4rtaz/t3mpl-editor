@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import * as dayjs from 'dayjs';
 import { TextPropertyContract } from 't3mpl-core/core/model';
 
 import { StateService } from '../../state.service';
-import * as moment from 'moment';
 
 @Component({
 	selector: 'app-datetime-property',
@@ -27,7 +27,7 @@ export class DatePropertyComponent implements OnInit {
 	public ngOnInit() {
 		this.value = this.stateService.getValue<string>(this.dataPath);
 		if (this.value) {
-			const date = moment(this.value);
+			const date = dayjs(this.value);
 			this.dateValue = date.format('YYYY-MM-DD');
 			this.timeValue = date.format('HH:mm:ss');
 		}
@@ -50,8 +50,8 @@ export class DatePropertyComponent implements OnInit {
 
 	private reloadValue() {
 		if (this.timeValue && this.dateValue) {
-			const date = moment(this.dateValue + ' ' + this.timeValue, 'YYYY-MM-DD HH:mm:ss', true);
-			this.value = date.toISOString(true);
+			const date = dayjs(this.dateValue + ' ' + this.timeValue, 'YYYY-MM-DD HH:mm:ss', true);
+			this.value = date.toISOString();
 		} else {
 			this.value = null;
 		}

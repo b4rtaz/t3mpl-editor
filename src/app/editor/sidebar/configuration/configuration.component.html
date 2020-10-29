@@ -1,0 +1,35 @@
+<section class="section">
+	<div class="tabs">
+		<ul>
+			<li class="selected">
+				Routing
+			</li>
+		</ul>
+	</div>
+	<div class="body">
+
+		<div class="property">
+			<div class="label">
+				<i class="fas fa-folder fa-fw fa-lg"></i>
+				<span class="name">
+					Path Strategy
+					<span class="description">How generate page files</span>
+				</span>
+			</div>
+			<div class="value">
+				<span class="radio-list">
+					<ul>
+						<li *ngFor="let pps of pagePathStrategies">
+							<label>
+								<input name="page-path-strategy" type="radio" [checked]="pps.isChecked" (change)="onPagePathStrategyChanged(pps.strategy)" />
+								{{pps.label}}
+							</label>
+							<span class="description">{{pps.example}}</span>
+						</li>
+					</ul>
+				</span>
+			</div>
+		</div>
+
+	</div>
+</section>

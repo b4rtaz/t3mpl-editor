@@ -5,11 +5,11 @@ import { getNextCurrentPage } from './state.service';
 describe('StateService', () => {
 
 	it('getNextCurrentPage() returns proper value', () => {
-		const pageO = { filePath: 'o.html', name: 'O', templateFilePath: 'o.html' };
+		const pageO = { filePath: 'o.html', virtualFilePath: 'o/', name: 'O', templateFilePath: 'o.html' };
 		const pages1: Page[] = [
-			{ filePath: 'a.html', name: 'A', templateFilePath: 'a.html' },
-			{ filePath: 'b.html', name: 'B', templateFilePath: 'b.html' },
-			{ filePath: 'c.html', name: 'C', templateFilePath: 'c.html' }
+			{ filePath: 'a.html', virtualFilePath: 'a/', name: 'A', templateFilePath: 'a.html' },
+			{ filePath: 'b.html', virtualFilePath: 'b/', name: 'B', templateFilePath: 'b.html' },
+			{ filePath: 'c.html', virtualFilePath: 'c/', name: 'C', templateFilePath: 'c.html' }
 		];
 
 		const pages2 = [...pages1];
@@ -23,15 +23,15 @@ describe('StateService', () => {
 		expect(r1).toBeNull();
 
 		const r2 = getNextCurrentPage(pages1, pages2, pages1[0]);
-		expect(r2.filePath).toEqual('a.html');
+		expect(r2.virtualFilePath).toEqual('a/');
 
 		const r3 = getNextCurrentPage([], pages1, null);
-		expect(r3.filePath).toEqual('a.html');
+		expect(r3.virtualFilePath).toEqual('a/');
 
 		const r4 = getNextCurrentPage(pages1, pages2, pages1[1]);
-		expect(r4.filePath).toEqual('a.html');
+		expect(r4.virtualFilePath).toEqual('a/');
 
 		const r5 = getNextCurrentPage(pages1, pages3, pages1[0]);
-		expect(r5.filePath).toEqual('a.html');
+		expect(r5.virtualFilePath).toEqual('a/');
 	});
 });
