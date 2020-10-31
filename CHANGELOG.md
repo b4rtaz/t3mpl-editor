@@ -1,5 +1,11 @@
 # Changelog
 
+### [0.2.2] - 2020-10-31
+
+### Added
+
+* The editor supports the two-level collection now.
+
 ### [0.2.1] - 2020-10-29
 
 ### Added

@@ -15,6 +15,7 @@ export class CollectionPropertyComponent implements OnInit {
 	public dataPath: string;
 
 	public items: any[];
+	public itemName: string;
 	public validationError: string;
 	public canAddItem: boolean;
 
@@ -23,6 +24,7 @@ export class CollectionPropertyComponent implements OnInit {
 	}
 
 	public ngOnInit() {
+		this.itemName = getCollectionItemName(this.property._label);
 		this.reload();
 	}
 
@@ -51,4 +53,11 @@ export class CollectionPropertyComponent implements OnInit {
 			this.reload();
 		}
 	}
+}
+
+export function getCollectionItemName(label: string): string {
+	if (label.length > 1 && label.endsWith('s')) {
+		return label.substr(0, label.length - 1);
+	}
+	return 'Item';
 }

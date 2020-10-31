@@ -17,9 +17,9 @@
 </div>
 
 <div class="children">
-	<div class="child" *ngFor="let _ of items; let ix = index">
+	<div class="child" *ngFor="let _ of items; let ix = index; let isOdd = odd; let isEven = even" [class.even]="isEven" [class.odd]="isOdd">
 		<div class="control">
-			<span class="occurcene">Item {{items.length - ix}}</span>
+			<span class="occurcene">{{itemName}} {{items.length - ix}}</span>
 
 			<button *ngIf="ix > 0" class="up" (click)="moveItem(ix, -1)" title="Move up">
 				<i class="fas fa-arrow-up fa-sm"></i>
