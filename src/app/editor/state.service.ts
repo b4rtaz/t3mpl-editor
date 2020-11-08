@@ -3,10 +3,13 @@ import { Subject } from 'rxjs';
 import { DataActivator } from 't3mpl-core/core/data/data-activator';
 import { DataPath } from 't3mpl-core/core/data/data-path';
 import { DataValidator } from 't3mpl-core/core/data/data-validator';
+import { MemoryStorage } from 't3mpl-core/core/memory-storage';
 import { Page, PropertyContract, PropertyContractMap, TemplateConfiguration, TemplateManifest } from 't3mpl-core/core/model';
 import { PagesResolver } from 't3mpl-core/core/pages-resolver';
 import { ReadableStorage, WritableStorage } from 't3mpl-core/core/storage';
 import { getDefaultConfiguration } from 't3mpl-core/core/template-configuration';
+
+import { TemplateSource } from './template-source';
 
 @Injectable()
 export class StateService {
@@ -25,6 +28,7 @@ export class StateService {
 
 	public previewMode: PreviewMode = 'desktop';
 
+	public templateSource: TemplateSource;
 	public templateManifest: TemplateManifest;
 	public templateStorage: ReadableStorage;
 	public contentStorage: WritableStorage;
@@ -34,20 +38,31 @@ export class StateService {
 	//
 
 	public setState(
+		templateSource: TemplateSource,
 		templateManifest: TemplateManifest,
 		templateStorage: ReadableStorage,
-		contentStorage: WritableStorage,
+		contentStorage?: WritableStorage,
 		configuration?: TemplateConfiguration,
 		data?: any) {
 
-		this.dataActivator = new DataActivator(templateStorage, contentStorage);
+		if (!contentStorage) {
+			contentStorage = new MemoryStorage();
+		}
 		this.dataValidator = new DataValidator();
+		this.dataActivator = new DataActivator(templateStorage, contentStorage);
+		if (!data) {
+			data = this.dataActivator.createInstance(templateManifest.dataContract);
+		}
+		if (!configuration) {
+			configuration = getDefaultConfiguration();
+		}
 
+		this.templateSource = templateSource;
 		this.templateManifest = templateManifest;
 		this.templateStorage = templateStorage;
 		this.contentStorage = contentStorage;
-		this.configuration = configuration ? configuration : getDefaultConfiguration();
-		this.data = data ? data : this.dataActivator.createInstance(templateManifest.dataContract);
+		this.configuration = configuration;
+		this.data = data;
 
 		this.currentPage = null;
 		this.reloadPages(false);

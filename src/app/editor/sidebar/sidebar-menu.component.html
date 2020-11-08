@@ -1,0 +1,35 @@
+<button class="publish" *ngIf="hasTemplate" (click)="publish()">
+	{{ 'sidebar.publish' | translate }} <i class="fas fa-paper-plane fa-lg ml"></i>
+</button>
+<button class="openMenu" appDropdown [target]="menu">
+	<i class="fas fa-bars fa-lg"></i>
+</button>
+
+<div class="menu" #menu>
+	<ul>
+		<li *ngIf="!hasTemplate || canChangeTemplate" (click)="importTemplate()">
+			<i class="fas fa-file-upload fa-fw mr"></i>
+			{{ 'sidebar.importTemplate' | translate }}
+		</li>
+		<li *ngIf="hasTemplate && canExportTemplate && canChangeTemplate" (click)="exportTemplate()">
+			<i class="fas fa-file-import fa-fw mr"></i>
+			{{ 'sidebar.exportTemplate' | translate }}
+		</li>
+		<li *ngIf="hasTemplate" (click)="importData()">
+			<i class="fas fa-file-upload fa-fw mr"></i>
+			{{ 'sidebar.importData' | translate }}
+		</li>
+		<li *ngIf="hasTemplate" (click)="exportData()">
+			<i class="fas fa-file-import fa-fw mr"></i>
+			{{ 'sidebar.exportData' | translate }}
+		</li>
+		<li *ngIf="hasTemplate" (click)="openTemplateInfo()">
+			<i class="fas fa-info fa-fw mr"></i>
+			{{ 'sidebar.aboutTemplate' | translate }}
+		</li>
+		<li *ngIf="!hasTemplate || canChangeTemplate" (click)="exploreTemplates()">
+			<i class="fas fa-star fa-fw mr"></i>
+			{{ 'sidebar.exploreTemplates' | translate }}
+		</li>
+	</ul>
+</div>

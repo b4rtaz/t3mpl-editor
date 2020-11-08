@@ -17,11 +17,16 @@ import { ImportPopupComponent } from './import/import-popup.component';
 import { ImportPopupService } from './import/import-popup.service';
 import { DataImporter } from './import/importers/data-importer';
 import { TemplateImporter } from './import/importers/template-importer';
+import { LoaderPopupComponent } from './loader/loader-popup.component';
+import { LoaderPopupService } from './loader/loader-popup.service';
 import { MarkdownEditorPopupComponent } from './markdown-editor/markdown-editor-popup.component';
 import { MarkdownEditorPopupService } from './markdown-editor/markdown-editor-popup.service';
 import { PopupService } from './popup.service';
+import { ScrollDownDirective } from './scroll-down.directive';
 import { TemplateInfoPopupComponent } from './template-info/template-info-popup.component';
 import { TemplateInfoPopupService } from './template-info/template-info-popup.service';
+import { UploaderPopupComponent } from './uploader/uploader-popup.component';
+import { UploaderPopupService } from './uploader/uploader-popup.service';
 
 @NgModule({
 	declarations: [
@@ -31,7 +36,10 @@ import { TemplateInfoPopupService } from './template-info/template-info-popup.se
 		MarkdownEditorPopupComponent,
 		ExportPopupComponent,
 		ImportPopupComponent,
-		TemplateInfoPopupComponent
+		TemplateInfoPopupComponent,
+		LoaderPopupComponent,
+		UploaderPopupComponent,
+		ScrollDownDirective
 	],
 	entryComponents: [
 		ConfirmPopupComponent,
@@ -40,7 +48,9 @@ import { TemplateInfoPopupService } from './template-info/template-info-popup.se
 		MarkdownEditorPopupComponent,
 		ExportPopupComponent,
 		ImportPopupComponent,
-		TemplateInfoPopupComponent
+		TemplateInfoPopupComponent,
+		LoaderPopupComponent,
+		UploaderPopupComponent
 	],
 	providers: [
 		PopupService,
@@ -58,7 +68,10 @@ import { TemplateInfoPopupService } from './template-info/template-info-popup.se
 
 		ImportPopupService,
 		TemplateImporter,
-		DataImporter
+		DataImporter,
+
+		LoaderPopupService,
+		UploaderPopupService
 	],
 	imports: [
 		BrowserModule,

@@ -6,41 +6,7 @@
 			</h1>
 		</div>
 		<div class="control">
-			<button class="publish" *ngIf="templateName" (click)="publish()">
-				Publish <i class="fas fa-paper-plane fa-lg ml"></i>
-			</button>
-			<button class="openMenu" appDropdown [target]="menu">
-				<i class="fas fa-bars fa-lg"></i>
-			</button>
-
-			<div class="menu" #menu>
-				<ul>
-					<li (click)="importTemplate()">
-						<i class="fas fa-file-upload fa-fw mr"></i>
-						Import template .t3mpl
-					</li>
-					<li *ngIf="templateName && canExportTemplate" (click)="exportTemplate()">
-						<i class="fas fa-file-import fa-fw mr"></i>
-						Export template .t3mpl
-					</li>
-					<li *ngIf="templateName" (click)="importData()">
-						<i class="fas fa-file-upload fa-fw mr"></i>
-						Import data .t3data
-					</li>
-					<li *ngIf="templateName" (click)="exportData()">
-						<i class="fas fa-file-import fa-fw mr"></i>
-						Export data .t3data
-					</li>
-					<li *ngIf="templateName" (click)="openTemplateInfo()">
-						<i class="fas fa-info fa-fw mr"></i>
-						About template
-					</li>
-					<li (click)="exploreTemplates()">
-						<i class="fas fa-star fa-fw mr"></i>
-						Explore templates
-					</li>
-				</ul>
-			</div>
+			<app-sidebar-menu></app-sidebar-menu>
 		</div>
 	</div>
 
@@ -53,7 +19,8 @@
 				<option
 					*ngFor="let item of items; let i = index"
 					[value]="i"
-					[selected]="item === currentItem">
+					[selected]="item === currentItem"
+					[disabled]="item.type === 'separator'">
 					{{item.label}}
 				</option>
 			</select>

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { DataPreviewRenderer } from './data-preview-renderer';
 import { PageTabsComponent } from './page-tabs.component';
@@ -21,6 +22,7 @@ import { TemplatePreviewRenderer } from './template-preview-renderer';
 		DataPreviewRenderer
 	],
 	imports: [
+		TranslateModule.forChild(),
 		BrowserModule,
 		CommonModule
 	]

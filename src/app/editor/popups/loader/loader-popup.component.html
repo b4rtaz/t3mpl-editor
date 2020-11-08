@@ -1,0 +1,20 @@
+<div class="popup">
+	<div class="window">
+		<div class="header">
+			<h3>
+				Please wait
+			</h3>
+			<button class="close" [disabled]="processing" (click)="close()">
+				<i class="fas fa-times fa-lg"></i>
+			</button>
+		</div>
+		<div class="body">
+			<textarea class="log" appScrollDown [follow]="log" readonly>{{log}}</textarea>
+		</div>
+		<div class="footer">
+			<button [disabled]="processing" (click)="close()">
+				<i class="fas fa-times fa-fw fa-sm mr"></i> Close
+			</button>
+		</div>
+	</div>
+</div>

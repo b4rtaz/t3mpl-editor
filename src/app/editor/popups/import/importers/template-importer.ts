@@ -23,7 +23,13 @@ export class TemplateImporter {
 					const manifestParser = new TemplateManifestParser();
 					const manifest = manifestParser.parse(manifestRaw);
 
-					this.stateService.setState(manifest, templateStorage, new MemoryStorage(), null, null);
+					this.stateService.setState(
+						{ type: 'file' },
+						manifest,
+						templateStorage,
+						new MemoryStorage(),
+						null,
+						null);
 					r.next();
 				} catch (e) {
 					r.error(e);

@@ -1,12 +1,10 @@
-import { Component, Input, OnChanges, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { DataActivator } from 't3mpl-core/core/data/data-activator';
-import { MemoryStorage } from 't3mpl-core/core/memory-storage';
 
-import { ConfirmPopupService } from './popups/confirm/confirm-popup.service';
+import { LoaderPopupService } from './popups/loader/loader-popup.service';
 import { PopupService } from './popups/popup.service';
-import { RemoteTemplateLoader, Template } from './remote-template-loader';
 import { StateService } from './state.service';
+import { TemplateSource } from './template-source';
 
 @Component({
 	selector: 'app-editor',
@@ -15,56 +13,39 @@ import { StateService } from './state.service';
 export class EditorComponent implements OnInit, OnChanges {
 
 	@Input()
-	public manifestUrl: string;
+	public templateSource: TemplateSource;
 
 	@ViewChild('container', { static: true, read: ViewContainerRef })
 	public container: ViewContainerRef;
 
 	public constructor(
 		private readonly popupService: PopupService,
-		private readonly confirmPopupService: ConfirmPopupService,
 		private readonly stateService: StateService,
-		private readonly titleService: Title) {
+		private readonly titleService: Title,
+		private readonly loaderPopup: LoaderPopupService) {
 	}
 
 	public ngOnInit() {
 		this.popupService.setContainer(this.container);
 		this.stateService.onStateChanged.subscribe(() => this.onStateChanged());
-	}
 
-	public ngOnChanges() {
-		if (this.manifestUrl) {
-			this.loadRemoteTemplate(this.manifestUrl);
+		if (this.templateSource) {
+			this.load();
 		}
 	}
 
-	private loadRemoteTemplate(manifestUrl: string) {
-		const loader = new RemoteTemplateLoader();
-		loader.load(manifestUrl)
-			.then(t => this.loadedTemplate(t))
-			.catch(e => {
-				const message = e instanceof Error ? e.message : e.toString();
-				this.confirmPopupService.ok('An error occurred', `Cannot load a template. ${message}`);
-				console.error(e);
-			});
-	}
-
-	private loadedTemplate(template: Template) {
-		const contentStorage = new MemoryStorage();
-
-		const activator = new DataActivator(template.templateStorage, contentStorage);
-		const data = activator.createInstance(template.templateManifest.dataContract);
-
-		this.stateService.setState(
-			template.templateManifest,
-			template.templateStorage,
-			contentStorage,
-			null,
-			data);
+	public ngOnChanges(changes: SimpleChanges) {
+		if (changes.templateSource && !changes.templateSource.firstChange) {
+			this.load();
+		}
 	}
 
 	private onStateChanged() {
 		this.reloadPageTitle();
+	}
+
+	private load() {
+		this.loaderPopup.load(this.templateSource);
 	}
 
 	private reloadPageTitle() {

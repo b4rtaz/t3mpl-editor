@@ -1,6 +1,5 @@
-import { ComponentFactoryResolver, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { PopupService } from '../popup.service';
 import { ConfirmPopupMode } from './confirm-popup-mode';
@@ -10,7 +9,6 @@ import { ConfirmPopupComponent } from './confirm-popup.component';
 export class ConfirmPopupService {
 
 	public constructor(
-		private readonly factoryResolver: ComponentFactoryResolver,
 		private readonly popupService: PopupService) {
 	}
 
@@ -24,19 +22,10 @@ export class ConfirmPopupService {
 	}
 
 	private show(mode: ConfirmPopupMode, title: string, message: string): Observable<boolean> {
-		const factory = this.factoryResolver.resolveComponentFactory(ConfirmPopupComponent);
-		const container = this.popupService.getContainer();
-
-		const component = factory.create(container.injector);
-		component.instance.mode = mode;
-		component.instance.title = title;
-		component.instance.message = message;
-		container.insert(component.hostView);
-
-		return component.instance.result
-			.pipe(map(r => {
-				container.remove();
-				return r;
-			}));
+		return this.popupService.open(ConfirmPopupComponent, i => {
+			i.mode = mode;
+			i.title = title;
+			i.message = message;
+		});
 	}
 }

@@ -1,0 +1,27 @@
+{
+	"sidebar": {
+		"publish": "Publish",
+		"importTemplate": "Import template .t3mpl",
+		"exportTemplate": "Export template .t3mpl",
+		"importData": "Import data .t3data",
+		"exportData": "Export data .t3data",
+		"aboutTemplate": "About template",
+		"exploreTemplates": "Explore templates",
+		"confirmPublishingTitle": "Are you sure?",
+		"confirmPublishingDescription": "This step will update your public website.",
+		"confirmValidationErrorsTitle": "Validation errors",
+		"confirmValidationErrorsDescription": "There are validation errors. Do you want to continue?"
+	},
+	"configuration": {
+		"routing": "Routing",
+		"pathStrategy": "Path Strategy",
+		"pathStrategyExplain": "How generate page files",
+		"absolutePathStrategy": "Absolute Path Strategy",
+		"directoryPathStrategy": "Directory Path Strategy"
+	},
+	"pageTabs": {
+		"desktopMode": "Desktop mode",
+		"mobileMode": "Mobile mode",
+		"dataMode": "Data mode"
+	}
+}

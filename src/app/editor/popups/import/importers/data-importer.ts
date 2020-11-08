@@ -30,6 +30,7 @@ export class DataImporter {
 					}
 
 					this.stateService.setState(
+						this.stateService.templateSource,
 						this.stateService.templateManifest,
 						this.stateService.templateStorage,
 						contentStorage,

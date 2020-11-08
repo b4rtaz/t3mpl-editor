@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { DropdownDirective } from './dropdown.directive';
@@ -15,11 +16,13 @@ import { MarkdownPropertyComponent } from './properties/markdown-property.compon
 import { PropertiesComponent } from './properties/properties.component';
 import { TextPropertyComponent } from './properties/text-property.component';
 import { SectionComponent } from './sections.component';
+import { SidebarMenuComponent } from './sidebar-menu.component';
 import { SidebarComponent } from './sidebar.component';
 
 @NgModule({
 	declarations: [
 		SidebarComponent,
+		SidebarMenuComponent,
 		DropdownDirective,
 
 		ConfigurationComponent,
@@ -39,6 +42,7 @@ import { SidebarComponent } from './sidebar.component';
 		SidebarComponent
 	],
 	imports: [
+		TranslateModule.forChild(),
 		BrowserModule,
 		CommonModule
 	]

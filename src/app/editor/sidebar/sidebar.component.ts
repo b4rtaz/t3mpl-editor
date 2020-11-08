@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { PROJECT_WEBSITE_URL } from 't3mpl-core/core/constants';
-import { SectionContractMap, ZoneContractMap } from 't3mpl-core/core/model';
+import { SectionContractMap } from 't3mpl-core/core/model';
 
 import { version } from '../../../../package.json';
-import { ConfirmPopupService } from '../popups/confirm/confirm-popup.service';
-import { ExportPopupService } from '../popups/export/export-popup.service';
-import { ImportPopupService } from '../popups/import/import-popup.service';
-import { TemplateInfoPopupService } from '../popups/template-info/template-info-popup.service';
 import { StateService } from '../state.service';
 
 @Component({
@@ -18,17 +12,12 @@ export class SidebarComponent implements OnInit {
 
 	public readonly appVersion: string = version;
 	public templateName: string;
-	public canExportTemplate: boolean;
 
 	public items: SidebarItem[];
 	public currentItem: SidebarItem;
 
 	public constructor(
-		private readonly stateService: StateService,
-		private readonly confirmPopupService: ConfirmPopupService,
-		private readonly exportPopupService: ExportPopupService,
-		private readonly importPopupService: ImportPopupService,
-		private readonly templateInfoPopupService: TemplateInfoPopupService) {
+		private readonly stateService: StateService) {
 	}
 
 	public ngOnInit() {
@@ -37,9 +26,7 @@ export class SidebarComponent implements OnInit {
 
 	private onStateChanged() {
 		const manifest = this.stateService.templateManifest;
-
 		this.templateName = manifest.meta.name;
-		this.canExportTemplate = manifest.meta.exportable;
 
 		const items: SidebarItem[] = Object.keys(manifest.dataContract.zones).map(zoneName => {
 			const zone = manifest.dataContract.zones[zoneName];
@@ -51,8 +38,12 @@ export class SidebarComponent implements OnInit {
 			};
 		});
 		items.push({
+			type: 'separator',
+			label: '────'
+		});
+		items.push({
 			type: 'configuration',
-			label: '⌊ Configuration'
+			label: 'Configuration'
 		});
 		this.items = items;
 		this.currentItem = items[0];
@@ -60,54 +51,6 @@ export class SidebarComponent implements OnInit {
 
 	public onItemChanged(itemIndex: number) {
 		this.currentItem = this.items[itemIndex];
-	}
-
-	public publish() {
-		this.confirmValidation()
-			.subscribe(result => {
-				if (result) {
-					this.exportPopupService.open('publish');
-				}
-			});
-	}
-
-	public importTemplate() {
-		this.importPopupService.show('template');
-	}
-
-	public exportTemplate() {
-		this.exportPopupService.open('template');
-	}
-
-	public importData() {
-		this.importPopupService.show('data');
-	}
-
-	public exportData() {
-		this.confirmValidation()
-			.subscribe(result => {
-				if (result) {
-					this.exportPopupService.open('data');
-				}
-			});
-	}
-
-	private confirmValidation(): Observable<boolean> {
-		const invalidPropertyNames = this.stateService.validateAll();
-
-		if (invalidPropertyNames.length === 0) {
-			return of(true);
-		} else {
-			return this.confirmPopupService.prompt('Validation errors', 'There are validation errors. Do you want to continue?');
-		}
-	}
-
-	public openTemplateInfo() {
-		this.templateInfoPopupService.open();
-	}
-
-	public exploreTemplates() {
-		window.open(PROJECT_WEBSITE_URL, '_blank');
 	}
 }
 
@@ -118,7 +61,7 @@ interface SidebarItem {
 	zoneSections?: SectionContractMap[];
 }
 
-type SidebarItemType = 'configuration' | 'zone';
+type SidebarItemType = 'configuration' | 'separator' | 'zone';
 
 export function groupByPanel(map: SectionContractMap): SectionContractMap[] {
 	const paneled: { [panelName: string]: SectionContractMap } = {};
