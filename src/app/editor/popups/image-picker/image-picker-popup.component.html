@@ -1,8 +1,8 @@
 <div class="popup">
 	<div class="window">
 		<div class="header">
-			<h3>Pick an image</h3>
-			<button class="close" (click)="close()">
+			<h3>{{ 'imagePickerPopup.pickImage' | translate }}</h3>
+			<button class="close" (click)="cancel()">
 				<i class="fas fa-times fa-lg"></i>
 			</button>
 		</div>
@@ -16,10 +16,10 @@
 		</div>
 		<div class="footer">
 			<button (click)="save()">
-				<i class="fas fa-check fa-sm fa-fw mr"></i> Ok
+				<i class="fas fa-check fa-sm fa-fw mr"></i> {{ 'imagePickerPopup.ok' | translate }}
 			</button>
-			<button (click)="close()">
-				<i class="fas fa-times fa-sm fa-fw mr"></i> Cancel
+			<button (click)="cancel()">
+				<i class="fas fa-times fa-sm fa-fw mr"></i> {{ 'imagePickerPopup.cancel' | translate }}
 			</button>
 		</div>
 	</div>

@@ -8,7 +8,7 @@
 	</div>
 	<div class="value">
 		<span class="circle-picker">
-			<button class="add" (click)="unshiftItem()" [disabled]="!canAddItem" title="Insert item">
+			<button class="add" (click)="unshiftItem()" [disabled]="!canAddItem" title="{{ 'properties.insertItem' | translate }}">
 				<i class="fas fa-plus fa-sm"></i>
 			</button>
 			<span class="info-after-button">{{items.length}} items</span>
@@ -21,13 +21,13 @@
 		<div class="control">
 			<span class="occurcene">{{itemName}} {{items.length - ix}}</span>
 
-			<button *ngIf="ix > 0" class="up" (click)="moveItem(ix, -1)" title="Move up">
+			<button *ngIf="ix > 0" class="up" (click)="moveItem(ix, -1)" title="{{ 'properties.moveUpItem' | translate }}">
 				<i class="fas fa-arrow-up fa-sm"></i>
 			</button>
-			<button *ngIf="ix + 1 < items.length" class="down" (click)="moveItem(ix, 1)" title="Move down">
+			<button *ngIf="ix + 1 < items.length" class="down" (click)="moveItem(ix, 1)" title="{{ 'properties.moveDownItem' | translate }}">
 				<i class="fas fa-arrow-down fa-sm"></i>
 			</button>
-			<button class="delete" (click)="deleteItem(ix)" title="Delete">
+			<button class="delete" (click)="deleteItem(ix)" title="{{ 'properties.deleteItem' | translate }}">
 				<i class="fas fa-times fa-sm"></i>
 			</button>
 		</div>

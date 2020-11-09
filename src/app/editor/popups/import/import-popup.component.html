@@ -2,8 +2,8 @@
 	<div class="window">
 		<div class="header">
 			<h3>
-				<ng-container *ngIf="mode === 'data'">Import Data</ng-container>
-				<ng-container *ngIf="mode === 'template'">Import Template</ng-container>
+				<ng-container *ngIf="mode === 'data'">{{ 'importPopup.importData' | translate }}</ng-container>
+				<ng-container *ngIf="mode === 'template'">{{ 'importPopup.importTemplate' | translate }}</ng-container>
 			</h3>
 			<button class="close" (click)="close()">
 				<i class="fas fa-times fa-lg"></i>
@@ -16,10 +16,10 @@
 		</div>
 		<div class="footer">
 			<button (click)="import()" [disabled]="!file || processing">
-				<i class="fas fa-upload fa-sm fa-fw mr"></i> Import
+				<i class="fas fa-upload fa-sm fa-fw mr"></i> {{ 'importPopup.import' | translate }}
 			</button>
 			<button (click)="close()" [disabled]="processing">
-				<i class="fas fa-times fa-sm fa-fw mr"></i> Cancel
+				<i class="fas fa-times fa-sm fa-fw mr"></i> {{ 'importPopup.cancel' | translate }}
 			</button>
 		</div>
 	</div>

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ConfirmPopupComponent } from './confirm/confirm-popup.component';
 import { ConfirmPopupService } from './confirm/confirm-popup.service';
@@ -75,7 +76,8 @@ import { UploaderPopupService } from './uploader/uploader-popup.service';
 	],
 	imports: [
 		BrowserModule,
-		CommonModule
+		CommonModule,
+		TranslateModule.forChild()
 	]
 })
 export class PopupModule {

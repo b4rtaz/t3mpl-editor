@@ -1,7 +1,7 @@
 <div class="popup wide">
 	<div class="window">
 		<div class="header">
-			<h3>Edit Markdown</h3>
+			<h3>{{ 'markdownEditorPopup.editMarkdown' | translate }}</h3>
 			<button class="close" (click)="close()">
 				<i class="fas fa-times fa-lg"></i>
 			</button>
@@ -13,10 +13,10 @@
 		</div>
 		<div class="footer">
 			<button (click)="save()">
-				<i class="fas fa-check fa-sm fa-fw mr"></i> Ok
+				<i class="fas fa-check fa-sm fa-fw mr"></i> {{ 'markdownEditorPopup.ok' | translate }}
 			</button>
 			<button (click)="close()">
-				<i class="fas fa-times fa-sm fa-fw mr"></i> Cancel
+				<i class="fas fa-times fa-sm fa-fw mr"></i> {{ 'markdownEditorPopup.cancel' | translate }}
 			</button>
 		</div>
 	</div>

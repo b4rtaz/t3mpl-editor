@@ -12,6 +12,14 @@
 		"confirmValidationErrorsTitle": "Validation errors",
 		"confirmValidationErrorsDescription": "There are validation errors. Do you want to continue?"
 	},
+	"properties": {
+		"insertItem": "Insert new item",
+		"moveUpItem": "Move up item",
+		"moveDownItem": "Move down item",
+		"deleteItem": "Delete item",
+		"editHtml": "Edit HTML",
+		"editMarkdown": "Edit markdown"
+	},
 	"configuration": {
 		"routing": "Routing",
 		"pathStrategy": "Path Strategy",
@@ -23,5 +31,57 @@
 		"desktopMode": "Desktop mode",
 		"mobileMode": "Mobile mode",
 		"dataMode": "Data mode"
+	},
+	"exportPopup": {
+		"publishWebsite": "Publish Website",
+		"exportData": "Export Data",
+		"exportTemplate": "Export Template",
+		"considerDonation": "Please consider making a donation.",
+		"authorOfEditor": "Author of Editor",
+		"authorOfTemplate": "Author of Template",
+		"author": "Author",
+		"donation": "Donation",
+		"donate": "Donate",
+		"saveWebsiteAsZip": "Save Website as .zip",
+		"saveDataAsT3data": "Save Data as .t3data",
+		"saveTemplateAsT3data": "Save Template as .t3mpl"
+	},
+	"htmlEditorPopup": {
+		"editHtml": "Edit HTML",
+		"ok": "Ok",
+		"cancel": "Cancel"
+	},
+	"imagePickerPopup": {
+		"pickImage": "Pick Image",
+		"ok": "Ok",
+		"cancel": "Cancel"
+	},
+	"importPopup": {
+		"importData": "Import Data",
+		"importTemplate": "Import Template",
+		"import": "Import",
+		"cancel": "Cancel"
+	},
+	"loaderPopup": {
+		"title": "Please Wait",
+		"close": "Close"
+	},
+	"markdownEditorPopup": {
+		"editMarkdown": "Edit Markdown",
+		"ok": "Ok",
+		"cancel": "Cancel"
+	},
+	"templateInfoPopup": {
+		"title": "About Template",
+		"version": "Version",
+		"license": "License",
+		"author": "Author",
+		"homepage": "Homepage",
+		"donation": "Donation",
+		"close": "Close"
+	},
+	"uploaderPopup": {
+		"title": "Publish Website",
+		"close": "Close"
 	}
 }

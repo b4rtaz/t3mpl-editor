@@ -2,7 +2,7 @@
 	<div class="window">
 		<div class="header">
 			<h3>
-				Publish
+				{{ 'uploaderPopup.title' | translate }}
 			</h3>
 			<button class="close" [disabled]="processing" (click)="close()">
 				<i class="fas fa-times fa-lg"></i>
@@ -13,7 +13,7 @@
 		</div>
 		<div class="footer">
 			<button [disabled]="processing" (click)="close()">
-				<i class="fas fa-times fa-fw fa-sm mr"></i> Close
+				<i class="fas fa-times fa-fw fa-sm mr"></i> {{ 'uploaderPopup.close' | translate }}
 			</button>
 		</div>
 	</div>

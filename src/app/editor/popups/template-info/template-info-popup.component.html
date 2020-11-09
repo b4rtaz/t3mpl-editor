@@ -1,7 +1,7 @@
 <div class="popup">
 	<div class="window">
 		<div class="header">
-			<h3>About Template</h3>
+			<h3>{{ 'templateInfoPopup.title' | translate }}</h3>
 			<button class="close" (click)="close()">
 				<i class="fas fa-times fa-lg"></i>
 			</button>
@@ -11,31 +11,31 @@
 				<h4>{{meta.name}}</h4>
 
 				<div class="dl">
-					<div class="label">Version:</div>
+					<div class="label">{{ 'templateInfoPopup.version' | translate }}:</div>
 					<div class="value">{{meta.version}}</div>
 				</div>
 				<div class="dl">
-					<div class="label">License:</div>
+					<div class="label">{{ 'templateInfoPopup.license' | translate }}:</div>
 					<div class="value">{{meta.license}}</div>
 				</div>
 				<div class="dl">
-					<div class="label">Author:</div>
+					<div class="label">{{ 'templateInfoPopup.author' | translate }}:</div>
 					<div class="value">{{meta.author}}</div>
 				</div>
 
 				<div class="dl" *ngIf="meta.homepageUrl">
-					<div class="label">Homepage:</div>
+					<div class="label">{{ 'templateInfoPopup.homepage' | translate }}:</div>
 					<div class="value"><a href="{{meta.homepageUrl}}" target="_blank">{{meta.homepageUrl}}</a></div>
 				</div>
 				<div class="dl" *ngIf="meta.donationUrl">
-					<div class="label">Donation:</div>
+					<div class="label">{{ 'templateInfoPopup.donation' | translate }}:</div>
 					<div class="value"><a href="{{meta.donationUrl}}" target="_blank">{{meta.donationUrl}}</a></div>
 				</div>
 			</div>
 		</div>
 		<div class="footer">
 			<button (click)="close()">
-				<i class="fas fa-times fa-fw fa-sm mr"></i> Close
+				<i class="fas fa-times fa-fw fa-sm mr"></i> {{ 'templateInfoPopup.close' | translate }}
 			</button>
 		</div>
 	</div>

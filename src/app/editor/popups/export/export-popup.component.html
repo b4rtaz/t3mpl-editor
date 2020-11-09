@@ -2,9 +2,9 @@
 	<div class="window">
 		<div class="header">
 			<h3>
-				<ng-container *ngIf="mode === 'publish'">Publish Webpage</ng-container>
-				<ng-container *ngIf="mode === 'data'">Export Data</ng-container>
-				<ng-container *ngIf="mode === 'template'">Export Template</ng-container>
+				<ng-container *ngIf="mode === 'publish'">{{ 'exportPopup.publishWebsite' | translate }}</ng-container>
+				<ng-container *ngIf="mode === 'data'">{{ 'exportPopup.exportData' | translate }}</ng-container>
+				<ng-container *ngIf="mode === 'template'">{{ 'exportPopup.exportTemplate' | translate }}</ng-container>
 			</h3>
 			<button class="close" (click)="close()">
 				<i class="fas fa-times fa-lg"></i>
@@ -12,37 +12,37 @@
 		</div>
 		<div class="body">
 			<div class="text">
-				<p>Please consider making a donation.</p>
+				<p>{{ 'exportPopup.considerDonation' | translate }}</p>
 
-				<h4>T3MPL Editor Author</h4>
+				<h4>{{ 'exportPopup.authorOfEditor' | translate }}</h4>
 
 				<div class="dl">
-					<div class="label">Author:</div>
+					<div class="label">{{ 'exportPopup.author' | translate }}:</div>
 					<div class="value">Bartlomiej Tadych</div>
 				</div>
 
 				<div class="dl">
-					<div class="label">Donation:</div>
+					<div class="label">{{ 'exportPopup.donation' | translate }}:</div>
 					<div class="value">
 						<a href="{{projectDonateUrl}}" class="big" target="_blank">
-							<i class="fas fa-dollar-sign mr"></i> Donate T3MPL Editor Author
+							<i class="fas fa-dollar-sign mr"></i> {{ 'exportPopup.donate' | translate }}
 						</a>
 					</div>
 				</div>
 
 				<ng-container *ngIf="templateMeta.donationUrl">
-					<h4>Template {{templateMeta.name}}</h4>
+					<h4>{{ 'exportPopup.authorOfTemplate' | translate }} {{templateMeta.name}}</h4>
 
 					<div class="dl">
-						<div class="label">Author:</div>
+						<div class="label">{{ 'exportPopup.author' | translate }}:</div>
 						<div class="value">{{templateMeta.author}}</div>
 					</div>
 
 					<div class="dl">
-						<div class="label">Donation:</div>
+						<div class="label">{{ 'exportPopup.donation' | translate }}:</div>
 						<div class="value">
 							<a href="{{templateMeta.donationUrl}}" class="big" target="_blank">
-								<i class="fas fa-dollar-sign mr"></i> Donate Template Author
+								<i class="fas fa-dollar-sign mr"></i> {{ 'exportPopup.donate' | translate }}
 							</a>
 						</div>
 					</div>
@@ -52,9 +52,9 @@
 		<div class="footer">
 			<button (click)="save()" [disabled]="processing">
 				<i class="fas fa-save fa-sm fa-fw mr"></i>
-				<ng-container *ngIf="mode === 'publish'">Save Webpage as .zip</ng-container>
-				<ng-container *ngIf="mode === 'data'">Save Data as .t3data</ng-container>
-				<ng-container *ngIf="mode === 'template'">Save Template as .t3mpl</ng-container>
+				<ng-container *ngIf="mode === 'publish'">{{ 'exportPopup.saveWebsiteAsZip' | translate }}</ng-container>
+				<ng-container *ngIf="mode === 'data'">{{ 'exportPopup.saveDataAsT3data' | translate }}</ng-container>
+				<ng-container *ngIf="mode === 'template'">{{ 'exportPopup.saveTemplateAsT3data' | translate }}</ng-container>
 			</button>
 		</div>
 	</div>

@@ -15,12 +15,13 @@ const MAX_SIZE = 200;
 })
 export class ImagePickerPopupComponent implements OnInit, PopupComponent<string> {
 
+	private context: CanvasRenderingContext2D;
+	private newFilePath: string;
+
 	public readonly result: Subject<string> = new Subject();
 
 	@ViewChild('canvas', { static: true })
 	public canvas: ElementRef<HTMLCanvasElement>;
-
-	private context: CanvasRenderingContext2D;
 
 	public filePath: string;
 
@@ -42,10 +43,10 @@ export class ImagePickerPopupComponent implements OnInit, PopupComponent<string>
 			reader.onload = () => {
 				const data = reader.result as string;
 				const sourceFileName = files[0].name;
-				this.filePath = IMAGE_CONTENT_BASE_PATH + generateFileName({
+				this.newFilePath = IMAGE_CONTENT_BASE_PATH + generateFileName({
 					fileExt: getFileExt(sourceFileName)
 				});
-				this.stateService.contentStorage.setContent('dataUrl', this.filePath, data);
+				this.stateService.contentStorage.setContent('dataUrl', this.newFilePath, data);
 				this.reloadPreview();
 			};
 			reader.readAsDataURL(files[0]);
@@ -66,14 +67,23 @@ export class ImagePickerPopupComponent implements OnInit, PopupComponent<string>
 			this.canvas.nativeElement.height = height;
 			this.context.drawImage(image, 0, 0, width, height);
 		};
-		image.src = this.stateService.contentStorage.getContent('dataUrl', this.filePath);
+		image.src = this.stateService.contentStorage.getContent('dataUrl', this.getCurrentFilePath());
+	}
+
+	private getCurrentFilePath(): string {
+		return this.newFilePath
+			? this.newFilePath
+			: this.filePath;
 	}
 
 	public save() {
-		this.result.next(this.filePath);
+		this.result.next(this.getCurrentFilePath());
 	}
 
-	public close() {
+	public cancel() {
+		if (this.newFilePath) {
+			// TODO: an unused file should be removed from the storage.
+		}
 		this.result.next(this.filePath);
 	}
 }
