@@ -2,7 +2,7 @@
 
 # T3MPL Editor
 
-[![Build Status](https://travis-ci.org/b4rtaz/t3mpl-editor.svg?branch=master)](https://travis-ci.org/b4rtaz/t3mpl-editor) [![License: MIT](https://img.shields.io/github/license/mashape/apistatus.svg)](/LICENSE) [![Twitter: b4rtaz](https://img.shields.io/twitter/follow/b4rtaz.svg?style=social)](https://twitter.com/b4rtaz)
+[![Build Status](https://travis-ci.com/b4rtaz/t3mpl-editor.svg?branch=master)](https://travis-ci.com/b4rtaz/t3mpl-editor) [![License: MIT](https://img.shields.io/github/license/mashape/apistatus.svg)](/LICENSE) [![Twitter: b4rtaz](https://img.shields.io/twitter/follow/b4rtaz.svg?style=social)](https://twitter.com/b4rtaz)
 
 T3MPL is a super simple static website generator. To generate a website you need just a browser (or nodejs). Choose a website template and edit it by T3MPL Editor. In 3 minutes you will get a final website zip file. You need only upload generated files to your server. Moreover, T3MPL is totally free and open source.
 

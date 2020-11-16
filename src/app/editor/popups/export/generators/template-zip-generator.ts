@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as JSZip from 'jszip';
 import { Observable } from 'rxjs';
 import { TEMPLATE_ZIP_FILE_EXT } from 't3mpl-core/core/constants';
-import { exportTemplate } from 't3mpl-core/core/exporter';
+import { Exporter } from 't3mpl-core/core/exporter';
 import { generateFileName } from 't3mpl-core/core/utils/file-name-generator';
 
 import { StateService } from '../../../state.service';
@@ -19,7 +19,7 @@ export class TemplateZipGenerator {
 		return new Observable(r => {
 			const zip = new JSZip();
 
-			exportTemplate(this.stateService.templateStorage, zipExportHandler(zip));
+			Exporter.exportTemplate(this.stateService.templateStorage, zipExportHandler(zip));
 
 			compress(zip).then((content) => {
 				const fileName = generateFileName({

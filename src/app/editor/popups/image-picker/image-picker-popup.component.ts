@@ -82,7 +82,7 @@ export class ImagePickerPopupComponent implements OnInit, PopupComponent<string>
 
 	public cancel() {
 		if (this.newFilePath) {
-			// TODO: an unused file should be removed from the storage.
+			this.stateService.contentStorage.remove('dataUrl', this.newFilePath);
 		}
 		this.result.next(this.filePath);
 	}

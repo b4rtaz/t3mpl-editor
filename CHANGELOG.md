@@ -1,14 +1,15 @@
 # Changelog
 
-### [0.2.2] - 2020-10-31
+### [0.3.0] - 2020-11-16
 
-### Added
+* Markdown supports images attaching.
+* The editor removes not used files from data.
+
+### [0.2.2] - 2020-10-31
 
 * The editor supports the two-level collection now.
 
 ### [0.2.1] - 2020-10-29
-
-### Added
 
 * One new strategy to generate website files. You can change this strategy in the editor. Find the new "Configuration" section in the sidebar on the left. Current T3MPL supports two strategies:
   * **Absolute Path Strategy (default)** - Anchors on the page have direct paths to files, i.e. `<a href="contact.html">`.

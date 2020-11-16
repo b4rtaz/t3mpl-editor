@@ -1,5 +1,6 @@
 import { DataSerializer } from 't3mpl-core/core/data/data-serializer';
-import { exportData } from 't3mpl-core/core/exporter';
+import { UsedFilesScanner } from 't3mpl-core/core/data/used-files-scanner';
+import { Exporter } from 't3mpl-core/core/exporter';
 import { TemplateConfiguration, TemplateManifest } from 't3mpl-core/core/model';
 import { ContentType, ReadableStorage } from 't3mpl-core/core/storage';
 
@@ -26,12 +27,13 @@ export async function uploadTemplateData(
 
 	logger('Uploading...');
 	const queue: QueueItem[] = [];
-	exportData(
+	Exporter.exportData(
 		templateManifest,
 		templateConfiguration,
 		data,
 		contentStorage,
 		new DataSerializer(),
+		new UsedFilesScanner(contentStorage),
 		(filePath, contentType, content) => {
 			queue.push({
 				filePath,
