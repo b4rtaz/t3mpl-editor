@@ -22,11 +22,11 @@ export class DataImporter {
 					const manifest = this.stateService.templateManifest;
 					const dataSerializer = new DataSerializer();
 
-					const dataRaw = contentStorage.getContent('text', TEMPLATE_DATA_FILE_NAME);
-					const data = dataSerializer.deserialize(dataRaw);
+					const templateDataRaw = contentStorage.getContent('text', TEMPLATE_DATA_FILE_NAME);
+					const templateData = dataSerializer.deserialize(templateDataRaw);
 
-					if (data.meta.name !== manifest.meta.name) {
-						throw new Error(`The data file contains a wrong template name: ${data.meta.name}. Expected: ${manifest.meta.name}.`);
+					if (templateData.meta.name !== manifest.meta.name) {
+						throw new Error(`The data file contains a wrong template name: ${templateData.meta.name}. Expected: ${manifest.meta.name}.`);
 					}
 
 					this.stateService.setState(
@@ -34,9 +34,7 @@ export class DataImporter {
 						this.stateService.templateManifest,
 						this.stateService.templateStorage,
 						contentStorage,
-						data.configuration,
-						data.data
-					);
+						templateData);
 					r.next();
 				} catch (e) {
 					r.error(e);

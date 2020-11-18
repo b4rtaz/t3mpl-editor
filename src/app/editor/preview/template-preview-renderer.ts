@@ -28,7 +28,7 @@ export class TemplatePreviewRenderer {
 				html = renderer.render(
 					this.stateService.pages,
 					this.stateService.currentPage,
-					this.stateService.data);
+					this.stateService.templateData);
 
 				const fileExt = getFileExt(this.stateService.currentPage.filePath);
 				switch (fileExt.toLowerCase()) {

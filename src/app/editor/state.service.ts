@@ -4,7 +4,14 @@ import { DataActivator } from 't3mpl-core/core/data/data-activator';
 import { DataPath } from 't3mpl-core/core/data/data-path';
 import { DataValidator } from 't3mpl-core/core/data/data-validator';
 import { MemoryStorage } from 't3mpl-core/core/memory-storage';
-import { Page, PropertyContract, PropertyContractMap, TemplateConfiguration, TemplateManifest } from 't3mpl-core/core/model';
+import {
+	Page,
+	PropertyContract,
+	PropertyContractMap,
+	TemplateConfiguration,
+	TemplateData,
+	TemplateManifest
+} from 't3mpl-core/core/model';
 import { PagesResolver } from 't3mpl-core/core/pages-resolver';
 import { ReadableStorage, WritableStorage } from 't3mpl-core/core/storage';
 import { getDefaultConfiguration } from 't3mpl-core/core/template-configuration';
@@ -32,8 +39,7 @@ export class StateService {
 	public templateManifest: TemplateManifest;
 	public templateStorage: ReadableStorage;
 	public contentStorage: WritableStorage;
-	public configuration: TemplateConfiguration;
-	public data: any;
+	public templateData: TemplateData;
 
 	//
 
@@ -42,27 +48,30 @@ export class StateService {
 		templateManifest: TemplateManifest,
 		templateStorage: ReadableStorage,
 		contentStorage?: WritableStorage,
-		configuration?: TemplateConfiguration,
-		data?: any) {
+		templateData?: TemplateData) {
 
 		if (!contentStorage) {
 			contentStorage = new MemoryStorage();
 		}
 		this.dataValidator = new DataValidator();
 		this.dataActivator = new DataActivator(templateStorage, contentStorage);
-		if (!data) {
-			data = this.dataActivator.createInstance(templateManifest.dataContract);
-		}
-		if (!configuration) {
-			configuration = getDefaultConfiguration();
+		if (!templateData) {
+			templateData = {
+				meta: {
+					name: templateManifest.meta.name,
+					version: templateManifest.meta.version,
+					filePaths: []
+				},
+				configuration: getDefaultConfiguration(),
+				data: this.dataActivator.createInstance(templateManifest.dataContract)
+			};
 		}
 
 		this.templateSource = templateSource;
 		this.templateManifest = templateManifest;
 		this.templateStorage = templateStorage;
 		this.contentStorage = contentStorage;
-		this.configuration = configuration;
-		this.data = data;
+		this.templateData = templateData;
 
 		this.currentPage = null;
 		this.reloadPages(false);
@@ -81,7 +90,7 @@ export class StateService {
 	}
 
 	public setConfiguration(configuration: TemplateConfiguration) {
-		this.configuration = configuration;
+		this.templateData.configuration = configuration;
 		this.reloadPages(true);
 		this.onConfigurationChanged.next();
 	}
@@ -92,32 +101,32 @@ export class StateService {
 	}
 
 	public validateAll(): string[] {
-		const errors = this.dataValidator.validate(this.templateManifest.dataContract, this.data);
+		const errors = this.dataValidator.validate(this.templateManifest.dataContract, this.templateData.data);
 		return Object.keys(errors);
 	}
 
 	public getValue<T>(dataPath: string): T {
-		return DataPath.parse(dataPath).get(this.data);
+		return DataPath.parse(dataPath).get(this.templateData.data);
 	}
 
 	public setValue<T>(dataPath: string, value: T) {
-		DataPath.parse(dataPath).set(this.data, value);
+		DataPath.parse(dataPath).set(this.templateData.data, value);
 		this.dataChanged(dataPath);
 	}
 
 	public unshiftItem(dataPath: string, map: PropertyContractMap) {
 		const newItem = this.dataActivator.createPropertiesInstance(map);
-		DataPath.parse(dataPath).unshiftItem(this.data, newItem);
+		DataPath.parse(dataPath).unshiftItem(this.templateData.data, newItem);
 		this.dataChanged(dataPath);
 	}
 
 	public removeItem(dataPath: string, index: number) {
-		DataPath.parse(dataPath).removeItem(this.data, index);
+		DataPath.parse(dataPath).removeItem(this.templateData.data, index);
 		this.dataChanged(dataPath);
 	}
 
 	public moveItem(dataPath: string, oldIndex: number, newIndex: number) {
-		DataPath.parse(dataPath).moveItem(this.data, oldIndex, newIndex);
+		DataPath.parse(dataPath).moveItem(this.templateData.data, oldIndex, newIndex);
 		this.dataChanged(dataPath);
 	}
 
@@ -128,8 +137,8 @@ export class StateService {
 
 	private reloadPages(fireEvent: boolean) {
 		const prevPages = this.pages;
-		const pagesResolver = new PagesResolver(this.configuration.pagePathStrategy);
-		this.pages = pagesResolver.resolve(this.templateManifest.pages, this.data);
+		const pagesResolver = new PagesResolver(this.templateData.configuration.pagePathStrategy);
+		this.pages = pagesResolver.resolve(this.templateManifest.pages, this.templateData.data);
 		const newCurrentPage = getNextCurrentPage(prevPages, this.pages, this.currentPage);
 		if (newCurrentPage) {
 			this.currentPage = newCurrentPage;

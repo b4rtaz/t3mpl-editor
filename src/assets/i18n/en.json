@@ -25,7 +25,9 @@
 		"pathStrategy": "Path Strategy",
 		"pathStrategyExplain": "How generate page files",
 		"absolutePathStrategy": "Absolute Path Strategy",
-		"directoryPathStrategy": "Directory Path Strategy"
+		"directoryPathStrategy": "Directory Path Strategy",
+		"baseUrl": "Base Website URL",
+		"baseUrlExplain": "i.e. https://example.com/"
 	},
 	"pageTabs": {
 		"desktopMode": "Desktop mode",

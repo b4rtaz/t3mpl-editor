@@ -38,9 +38,7 @@ export class LoaderPopupComponent implements OnInit, PopupComponent<void> {
 					b.template.templateManifest,
 					b.template.templateStorage,
 					b.data?.contentStorage,
-					b.data?.templateData.configuration,
-					b.data?.templateData.data
-				);
+					b.data?.templateData);
 				this.close();
 			}
 		} catch (e) {

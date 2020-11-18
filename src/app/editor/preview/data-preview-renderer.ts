@@ -11,7 +11,7 @@ export class DataPreviewRenderer {
 	}
 
 	public render(): string {
-		const json = JSON.stringify(this.stateService.data, null, 2);
+		const json = JSON.stringify(this.stateService.templateData.data, null, 2);
 		return createCodeDocument(json);
 	}
 }

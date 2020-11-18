@@ -36,7 +36,8 @@
             "scripts": [],
             "allowedCommonJsDependencies": [
               "t3mpl-core",
-              "file-saver"
+              "file-saver",
+              "he"
             ]
           },
           "configurations": {

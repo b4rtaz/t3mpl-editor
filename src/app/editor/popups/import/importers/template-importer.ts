@@ -27,7 +27,6 @@ export class TemplateImporter {
 						{ type: 'file' },
 						manifest,
 						templateStorage,
-						new MemoryStorage(),
 						null,
 						null);
 					r.next();

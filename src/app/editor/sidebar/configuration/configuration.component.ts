@@ -23,7 +23,7 @@ export class ConfigurationComponent implements OnInit {
 	}
 
 	public ngOnInit() {
-		this.configuration = this.stateService.configuration;
+		this.configuration = this.stateService.templateData.configuration;
 		this.reloadPagePathStrategy();
 	}
 
@@ -40,6 +40,12 @@ export class ConfigurationComponent implements OnInit {
 		this.configuration.pagePathStrategy = strategy;
 		this.stateService.setConfiguration(this.configuration);
 		this.reloadPagePathStrategy();
+	}
+
+	public onBaseUrlChanged(text?: string) {
+		const url = text.trim();
+		this.configuration.baseUrl = url || null;
+		this.stateService.setConfiguration(this.configuration);
 	}
 }
 

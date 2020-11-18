@@ -26,8 +26,7 @@ export class UploaderPopupComponent implements OnInit, PopupComponent<void> {
 			await uploadTemplateData(
 				this.stateService.templateSource.websiteUrl,
 				this.stateService.templateManifest,
-				this.stateService.configuration,
-				this.stateService.data,
+				this.stateService.templateData,
 				this.stateService.contentStorage,
 				message => this.appendLog(message)
 			);

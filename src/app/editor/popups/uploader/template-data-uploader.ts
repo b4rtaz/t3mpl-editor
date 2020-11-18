@@ -1,7 +1,7 @@
 import { DataSerializer } from 't3mpl-core/core/data/data-serializer';
-import { UsedFilesScanner } from 't3mpl-core/core/data/used-files-scanner';
 import { Exporter } from 't3mpl-core/core/exporter';
-import { TemplateConfiguration, TemplateManifest } from 't3mpl-core/core/model';
+import { TemplateData, TemplateManifest } from 't3mpl-core/core/model';
+import { UsedFilesScanner } from 't3mpl-core/core/scanners/used-files-scanner';
 import { ContentType, ReadableStorage } from 't3mpl-core/core/storage';
 
 import { ajax } from '../../core/ajax';
@@ -12,8 +12,7 @@ export type LoggerHandler = (message: string) => void;
 export async function uploadTemplateData(
 	websiteUrl: string,
 	templateManifest: TemplateManifest,
-	templateConfiguration: TemplateConfiguration,
-	data: any,
+	templateData: TemplateData,
 	contentStorage: ReadableStorage,
 	logger: LoggerHandler): Promise<void> {
 
@@ -29,8 +28,7 @@ export async function uploadTemplateData(
 	const queue: QueueItem[] = [];
 	Exporter.exportData(
 		templateManifest,
-		templateConfiguration,
-		data,
+		templateData,
 		contentStorage,
 		new DataSerializer(),
 		new UsedFilesScanner(contentStorage),

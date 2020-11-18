@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import * as JSZip from 'jszip';
 import { Observable } from 'rxjs';
 import { PagesDataGenerator } from 't3mpl-core/core/data/pages-data-generator';
-import { UsedFilesScanner } from 't3mpl-core/core/data/used-files-scanner';
 import { Exporter } from 't3mpl-core/core/exporter';
 import { PagesResolver } from 't3mpl-core/core/pages-resolver';
 import { TemplateRenderer } from 't3mpl-core/core/renderer/template-renderer';
+import { UsedFilesScanner } from 't3mpl-core/core/scanners/used-files-scanner';
 import { generateFileName } from 't3mpl-core/core/utils/file-name-generator';
 
 import { StateService } from '../../../state.service';
@@ -26,13 +26,13 @@ export class ReleaseZipGenerator {
 				this.stateService.contentStorage,
 				new PagesDataGenerator());
 
-			const pagesResolver = new PagesResolver(this.stateService.configuration.pagePathStrategy);
+			const pagesResolver = new PagesResolver(this.stateService.templateData.configuration.pagePathStrategy);
 			const usedFileScanner = new UsedFilesScanner(this.stateService.contentStorage);
 
 			const zip = new JSZip();
 			Exporter.exportRelease(
 				this.stateService.templateManifest,
-				this.stateService.data,
+				this.stateService.templateData,
 				this.stateService.contentStorage,
 				this.stateService.templateStorage,
 				pagesResolver,

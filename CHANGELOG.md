@@ -1,5 +1,9 @@
 # Changelog
 
+### [0.4.0] - 2020-11-19
+
+* Supporting absolute urls. The configuration has `baseUrl` parameter now.
+
 ### [0.3.0] - 2020-11-16
 
 * Markdown supports images attaching.

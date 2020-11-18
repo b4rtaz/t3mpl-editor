@@ -3,8 +3,8 @@ import * as JSZip from 'jszip';
 import { Observable } from 'rxjs';
 import { DATA_ZIP_FILE_EXT } from 't3mpl-core/core/constants';
 import { DataSerializer } from 't3mpl-core/core/data/data-serializer';
-import { UsedFilesScanner } from 't3mpl-core/core/data/used-files-scanner';
 import { Exporter } from 't3mpl-core/core/exporter';
+import { UsedFilesScanner } from 't3mpl-core/core/scanners/used-files-scanner';
 import { generateFileName } from 't3mpl-core/core/utils/file-name-generator';
 
 import { StateService } from '../../../state.service';
@@ -26,8 +26,7 @@ export class DataZipGenerator {
 
 			Exporter.exportData(
 				this.stateService.templateManifest,
-				this.stateService.configuration,
-				this.stateService.data,
+				this.stateService.templateData,
 				this.stateService.contentStorage,
 				dataSerializer,
 				usedFileScanner,

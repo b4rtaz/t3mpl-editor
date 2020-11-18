@@ -12,7 +12,7 @@
 			<div class="label">
 				<i class="fas fa-folder fa-fw fa-lg"></i>
 				<span class="name">
-					{{ 'configuration.pathStrategy' | translate }}
+					{{ 'configuration.pathStrategy' | translate }} *
 					<span class="description">{{ 'configuration.pathStrategyExplain' | translate }}</span>
 				</span>
 			</div>
@@ -28,6 +28,19 @@
 						</li>
 					</ul>
 				</span>
+			</div>
+		</div>
+
+		<div class="property">
+			<div class="label">
+				<i class="fas fa-link fa-fw fa-lg"></i>
+				<span class="name">
+					{{ 'configuration.baseUrl' | translate }}
+					<span class="description">{{ 'configuration.baseUrlExplain' | translate }}</span>
+				</span>
+			</div>
+			<div class="value">
+				<input type="text" [value]="configuration.baseUrl" (change)="onBaseUrlChanged($event.target.value)" autocomplete="off" />
 			</div>
 		</div>
 
