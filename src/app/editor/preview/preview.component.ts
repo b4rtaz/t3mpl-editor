@@ -35,7 +35,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
 		merge(
 			this.stateService.onStateChanged,
 			this.stateService.onDataChanged,
-			this.stateService.onPageChanged
+			this.stateService.onPageChanged,
+			this.stateService.onConfigurationChanged
 		)
 		.pipe(debounceTime(50))
 		.subscribe(() => this.render());
